@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <script>try{var t=localStorage.getItem("lockin-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22 role=%22img%22 aria-label=%22Lock In logo%22%3E%3Cdefs%3E%3ClinearGradient id=%22fbg%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%235B9BFF%22/%3E%3Cstop offset=%221%22 stop-color=%22%231747C9%22/%3E%3C/linearGradient%3E%3ClinearGradient id=%22fgd%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23FFE27A%22/%3E%3Cstop offset=%221%22 stop-color=%22%23F2A900%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x=%228%22 y=%228%22 width=%22112%22 height=%22112%22 rx=%2230%22 fill=%22url%28%23fbg%29%22/%3E%3Cpath d=%22M38 8H90A30 30 0 0 1 120 38V52C92 42 40 42 8 56V38A30 30 0 0 1 38 8Z%22 fill=%22%23fff%22 opacity=%22.24%22/%3E%3Crect x=%228.75%22 y=%228.75%22 width=%22110.5%22 height=%22110.5%22 rx=%2229.25%22 fill=%22none%22 stroke=%22%23fff%22 stroke-opacity=%22.55%22 stroke-width=%221.5%22/%3E%3Cpath d=%22M44 62V47a20 20 0 0 1 40 0V62%22 fill=%22none%22 stroke=%22%23fff%22 stroke-width=%229%22 stroke-linecap=%22round%22/%3E%3Crect x=%2235%22 y=%2260%22 width=%2258%22 height=%2246%22 rx=%2215%22 fill=%22url%28%23fgd%29%22/%3E%3Cpath d=%22M54 93V74L74 93V74%22 fill=%22none%22 stroke=%22%235A3A00%22 stroke-width=%225%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22/%3E%3Cpath d=%22M49 81H79M49 86.5H79%22 stroke=%22%235A3A00%22 stroke-width=%223.5%22 stroke-linecap=%22round%22/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22 role=%22img%22 aria-label=%22Lock In logo%22%3E%3Crect x=%226%22 y=%226%22 width=%22116%22 height=%22116%22 rx=%2232%22 fill=%22%23BFE2EF%22 stroke=%22%23171717%22 stroke-width=%225%22/%3E%3Cpath d=%22M44 64V48a20 20 0 0 1 40 0V64%22 fill=%22none%22 stroke=%22%23171717%22 stroke-width=%2217%22 stroke-linecap=%22round%22/%3E%3Cpath d=%22M44 64V48a20 20 0 0 1 40 0V64%22 fill=%22none%22 stroke=%22%23FFFDF8%22 stroke-width=%228%22 stroke-linecap=%22round%22/%3E%3Crect x=%2232%22 y=%2260%22 width=%2264%22 height=%2250%22 rx=%2216%22 fill=%22%23FFE27A%22 stroke=%22%23171717%22 stroke-width=%225%22/%3E%3Cpath d=%22M54 95V77L74 95V77%22 fill=%22none%22 stroke=%22%23171717%22 stroke-width=%225%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22/%3E%3Cpath d=%22M49 84H79M49 89H79%22 stroke=%22%23171717%22 stroke-width=%223.5%22 stroke-linecap=%22round%22/%3E%3Cpath d=%22M104 8l4.5 10 11 1-8.300 7.500 2.600 10.800-9.800-5.800-9.800 5.800 2.600-10.800-8.300-7.500 11-1z%22 fill=%22%23F6C945%22 stroke=%22%23171717%22 stroke-width=%223%22 stroke-linejoin=%22round%22 transform=%22translate%28-4 4%29 scale%28.9%29%22/%3E%3C/svg%3E">
 <title>Lock In — earn while you focus</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;800&family=DM+Sans:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=DM+Serif+Display&family=DM+Sans:wght@400;600;700;800&family=Space+Mono&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#DCE9FF;--card:rgba(255,255,255,.5);--ink:#0B1F44;--mute:#3F5888;--green:#1D5DE0;--gold:#F2B705;--red:#C8283F;--line:rgba(255,255,255,.8);color-scheme:light;
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -60,14 +60,55 @@ nav button{font-size:14px;padding:11px 4px}
 .bar{height:10px;border-radius:99px;background:var(--line);overflow:hidden}.bar i{display:block;height:100%;width:0;background:var(--gold);transition:width .3s}
 .mini{padding:5px 10px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:600 12px 'DM Sans',sans-serif;cursor:pointer}
 .rb{flex:1;font-size:26px;padding:8px 0;border-radius:14px;border:1px solid var(--line);background:var(--card);cursor:pointer}.rb[aria-pressed="true"]{background:var(--gold);border-color:var(--gold)}
+
+:root{--bg:#C9E8EE;--hl:#EAF7F4;--card:#FFFDF8;--ink:#171717;--mute:#6A6A62;--green:#8E2A5B;--gold:#F6C945;--red:#D13B54;--line:rgba(23,23,23,.16);--pink:#F8C6D4;--yellow:#FFF0A3;--blue:#BFE2EF;--mint:#CFE6B4;--plum:#3B0F22;--grid:rgba(23,23,23,.06);--band:#EFE3C8;--char:#262626}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12252A;--hl:#1E3940;--card:#1B3137;--ink:#F4F0E6;--mute:#A8BDBE;--green:#F4A9C4;--gold:#FFD65A;--red:#FF7C8F;--line:rgba(255,255,255,.16);--plum:#F6DDE8;--grid:rgba(255,255,255,.05);--band:#21373D;--char:#0C1A1D}}
+:root[data-theme="dark"]{--bg:#12252A;--hl:#1E3940;--card:#1B3137;--ink:#F4F0E6;--mute:#A8BDBE;--green:#F4A9C4;--gold:#FFD65A;--red:#FF7C8F;--line:rgba(255,255,255,.16);--plum:#F6DDE8;--grid:rgba(255,255,255,.05);--band:#21373D;--char:#0C1A1D}
+body{background:radial-gradient(120% 55% at 50% 0,var(--hl),var(--bg) 75%) fixed,var(--bg)}
+body::before,body::after{display:none}
+.big{font-family:'DM Sans',system-ui,sans-serif;font-weight:800}
+#bal,.time{font-family:'Bagel Fat One','DM Sans',system-ui,sans-serif;font-weight:400}
+.ser{font-family:'DM Serif Display',Georgia,serif;font-weight:400;color:var(--plum);text-transform:lowercase;font-size:clamp(34px,10vw,46px);text-align:center;line-height:1}
+.hd{display:flex;align-items:center;gap:10px;margin:2px 2px 8px}
+.hello{margin-left:auto;font-size:15px;text-align:right;max-width:30%;overflow-wrap:anywhere}
+.wm{font-family:'Bagel Fat One','DM Sans',system-ui,sans-serif;font-weight:400;font-size:34px;line-height:1;-webkit-text-stroke:3px #171717;paint-order:stroke fill;text-shadow:2px 3px 0 #171717;white-space:nowrap}
+.wm b{font-weight:400}
+.tick{overflow:hidden;white-space:nowrap;background:var(--band);border-block:1px solid var(--line);margin:8px -16px 14px}
+.trk{display:inline-flex;animation:mq 40s linear infinite}
+.trk span{font:400 11px 'Space Mono',monospace;letter-spacing:.06em;padding:8px 0;color:var(--ink)}
+@keyframes mq{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.trk{animation:none}}
+.wallet{position:relative;background:var(--char);color:#FFF6DD;border:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;border-radius:24px}
+.wallet small{display:block;font:400 11px 'Space Mono',monospace;color:#BFD3D3;opacity:1;letter-spacing:.04em;margin-top:2px}
+#bal{color:#FFE27A;font-size:clamp(34px,9vw,46px)}
+.tag{position:absolute;top:-11px;left:18px;background:var(--pink);color:#171717;border:1.5px solid #171717;border-radius:7px;padding:2px 9px;font:400 10px 'Space Mono',monospace;transform:rotate(-4deg)}
+.sb{display:flex;gap:6px;justify-content:flex-end;flex-wrap:wrap}
+.snd{background:transparent;border:1px solid rgba(255,246,221,.4);color:#FFF6DD}
+nav button{border-radius:999px;border:1.5px solid var(--ink);background:var(--card);color:var(--ink);backdrop-filter:none;-webkit-backdrop-filter:none;font-weight:700}
+nav button[aria-selected="true"]{background:var(--ink);color:var(--card)}
+.card{background-color:var(--card);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px;border:1px solid var(--line);border-radius:24px;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+input,select{border-radius:999px;border:1.5px solid var(--ink);background:var(--card);color:var(--ink)}
+.go{background:var(--pink);color:#171717;border:1.5px solid #171717;border-radius:999px;font:800 16px 'DM Sans',system-ui,sans-serif;box-shadow:3px 3px 0 #171717}
+.go:active{transform:translate(2px,2px);box-shadow:1px 1px 0 #171717}
+.go.quit{background:transparent;border:1.5px solid var(--red);color:var(--red);box-shadow:none}
+.mini{border:1px solid var(--ink)}
+.item{border:0;border-radius:18px;color:#171717;text-transform:lowercase}
+.item:nth-child(4n+1){background:var(--yellow)}.item:nth-child(4n+2){background:var(--pink)}.item:nth-child(4n+3){background:var(--blue)}.item:nth-child(4n){background:var(--mint)}
+.item .p,.item .m{color:#171717!important}
+.item .m{opacity:.65}
+.bar{border:1px solid var(--ink);background:var(--card)}
+.ft{background:var(--char);border-radius:24px;padding:22px 16px 16px;margin-top:18px;text-align:center}
+.ft .wm{font-size:clamp(40px,14vw,64px)}
+.ft p{font:400 11px 'Space Mono',monospace;color:#BFD3D3;margin:10px 0 0}
 </style>
 </head>
 <body>
 <main>
-  <header style="display:flex;align-items:center;gap:10px;margin:2px 4px 14px"><span style="width:42px;display:block"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Lock In logo"><defs><linearGradient id="hbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5B9BFF"/><stop offset="1" stop-color="#1747C9"/></linearGradient><linearGradient id="hgd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE27A"/><stop offset="1" stop-color="#F2A900"/></linearGradient></defs><rect x="8" y="8" width="112" height="112" rx="30" fill="url(#hbg)"/><path d="M38 8H90A30 30 0 0 1 120 38V52C92 42 40 42 8 56V38A30 30 0 0 1 38 8Z" fill="#fff" opacity=".24"/><rect x="8.75" y="8.75" width="110.5" height="110.5" rx="29.25" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="1.5"/><path d="M44 62V47a20 20 0 0 1 40 0V62" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round"/><rect x="35" y="60" width="58" height="46" rx="15" fill="url(#hgd)"/><path d="M54 93V74L74 93V74" fill="none" stroke="#5A3A00" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M49 81H79M49 86.5H79" stroke="#5A3A00" stroke-width="3.5" stroke-linecap="round"/></svg></span><span class="big" style="font-size:27px;font-weight:800;letter-spacing:-.02em">Lock In</span><span id="hello" class="big" style="margin-left:auto;font-size:17px;font-weight:600;text-align:right;max-width:34%;overflow-wrap:anywhere"></span><button id="theme" class="mini" aria-label="Switch between dark and light mode" style="font-size:16px;padding:6px 10px;margin-left:8px"></button></header>
+  <header class="hd"><span style="width:46px;flex:none;display:block"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Lock In logo"><rect x="6" y="6" width="116" height="116" rx="32" fill="#BFE2EF" stroke="#171717" stroke-width="5"/><path d="M44 64V48a20 20 0 0 1 40 0V64" fill="none" stroke="#171717" stroke-width="17" stroke-linecap="round"/><path d="M44 64V48a20 20 0 0 1 40 0V64" fill="none" stroke="#FFFDF8" stroke-width="8" stroke-linecap="round"/><rect x="32" y="60" width="64" height="50" rx="16" fill="#FFE27A" stroke="#171717" stroke-width="5"/><path d="M54 95V77L74 95V77" fill="none" stroke="#171717" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M49 84H79M49 89H79" stroke="#171717" stroke-width="3.5" stroke-linecap="round"/><path d="M104 8l4.5 10 11 1-8.300 7.500 2.600 10.800-9.800-5.800-9.800 5.800 2.600-10.800-8.300-7.500 11-1z" fill="#F6C945" stroke="#171717" stroke-width="3" stroke-linejoin="round" transform="translate(-4 4) scale(.9)"/></svg></span><span class="wm" aria-label="Lock In"><b style="color:#FFFDF8">l</b><b style="color:#CFE6B4">o</b><b style="color:#FFF0A3">c</b><b style="color:#F8C6D4">k</b>&nbsp;<b style="color:#BFE2EF">i</b><b style="color:#FFFDF8">n</b><b style="color:#FFE27A">.</b></span><span id="hello" class="big hello"></span><button id="theme" class="mini" aria-label="Switch between dark and light mode" style="font-size:16px;padding:6px 10px"></button></header>
+  <div class="tick" aria-hidden="true"><div class="trk"><span>LOCK IN ✦ EARN WHILE YOU FOCUS ✦ SPEND IT ON BREAKS ✦ KEEP THE STREAK ✦ LOCK IN ✦ EARN WHILE YOU FOCUS ✦ SPEND IT ON BREAKS ✦ KEEP THE STREAK ✦ LOCK IN ✦ EARN WHILE YOU FOCUS ✦ SPEND IT ON BREAKS ✦ KEEP THE STREAK ✦ </span><span>LOCK IN ✦ EARN WHILE YOU FOCUS ✦ SPEND IT ON BREAKS ✦ KEEP THE STREAK ✦ LOCK IN ✦ EARN WHILE YOU FOCUS ✦ SPEND IT ON BREAKS ✦ KEEP THE STREAK ✦ LOCK IN ✦ EARN WHILE YOU FOCUS ✦ SPEND IT ON BREAKS ✦ KEEP THE STREAK ✦ </span></div></div>
   <section class="wallet" aria-live="off">
-    <div><small>Your wallet</small><div class="big" id="bal">₦0.00</div></div>
-    <div class="stats"><div id="st1"></div><div id="st2"></div><button class="snd" id="snd">🔔 Sound on</button></div>
+    <div><span class="tag">focus fund</span><small>your wallet</small><div class="big" id="bal">₦0.00</div></div>
+    <div class="stats"><div id="st1"></div><div id="st2"></div><div class="sb"><button class="snd" id="snd">🔔 Sound on</button><button class="snd" id="cur"></button></div></div>
   </section>
   <nav role="tablist">
     <button role="tab" id="t-focus" aria-selected="true">Focus</button>
@@ -87,7 +128,7 @@ nav button{font-size:14px;padding:11px 4px}
       <div class="row"><input id="task" placeholder="What are you locking in on?" maxlength="60" aria-label="Task"></div>
       <div class="row"><select id="len" aria-label="Session length"><option value="15">15 min → ₦3,000</option><option value="25" selected>25 min → ₦5,000</option><option value="50">50 min → ₦10,000</option></select></div>
       <button class="go" id="start">Start earning</button>
-      <p class="hint">You earn ₦200 for every minute you stay locked in.</p><p class="hint" id="cmb"></p>
+      <p class="hint" id="ratehint"></p><p class="hint" id="cmb"></p>
     </div>
     <div id="live" class="hide">
       <div class="big" style="text-align:center;font-size:22px" id="ctask"></div>
@@ -116,7 +157,7 @@ nav button{font-size:14px;padding:11px 4px}
       <div class="shop" id="items"></div>
       <details style="margin-top:14px"><summary style="cursor:pointer;font-weight:600">Add your own reward</summary>
         <div class="row" style="margin-top:10px"><input id="cn" placeholder="e.g. Watch one reel" maxlength="30" aria-label="Reward name"></div>
-        <div class="row"><input id="cp" type="number" min="100" step="100" placeholder="Price (₦)" aria-label="Price"><input id="cm" type="number" min="1" max="30" placeholder="Minutes" aria-label="Minutes"></div>
+        <div class="row"><input id="cp" type="number" min="0" step="any" placeholder="Price" aria-label="Price"><input id="cm" type="number" min="1" max="30" placeholder="Minutes" aria-label="Minutes"></div>
         <button class="go" id="add" style="font-size:15px;padding:11px">Add to shop</button>
       </details>
     </div>
@@ -131,6 +172,7 @@ nav button{font-size:14px;padding:11px 4px}
     <div class="row"><button class="go" id="exp" style="font-size:14px;padding:11px">Export backup</button><button class="go" id="imp" style="font-size:14px;padding:11px;background:var(--card);color:var(--ink);border:1px solid var(--line)">Import backup</button></div>
     <input type="file" id="impf" accept="application/json" class="hide">
   </section>
+<footer class="ft"><div class="wm" aria-label="Lock In"><b style="color:#FFFDF8">l</b><b style="color:#CFE6B4">o</b><b style="color:#FFF0A3">c</b><b style="color:#F8C6D4">k</b>&nbsp;<b style="color:#BFE2EF">i</b><b style="color:#FFFDF8">n</b><b style="color:#FFE27A">.</b></div><p>made for people who need to lock in</p></footer>
 </main>
 <div id="ci" class="hide" role="dialog" aria-modal="true" aria-label="Session check-in" style="position:fixed;inset:0;z-index:20;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(5,15,40,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)">
 <div class="card" style="max-width:420px;width:100%;background:var(--bg)">
@@ -146,7 +188,7 @@ nav button{font-size:14px;padding:11px 4px}
 /* Paste your Supabase Project URL and anon (public) key here. Never use the service_role key. */
 const SB_URL='https://rorpfaxxgomteiyceiem.supabase.co', SB_KEY='sb_publishable_Nxtwe-SPTf4qcTOXb-PAew_ZVs1C_4g';
 const RATE=200, FINE=150, GOAL=10000, COMBO_MS=600000, PAUSE_MS=20000, MAXP=5;
-const BASE=[{e:'💧',n:'Water break',p:1000,m:5},{e:'📱',n:'Phone scroll',p:1500,m:5},{e:'🍫',n:'Snack',p:800,m:3},{e:'🧘',n:'Stretch break',p:500,m:3},{e:'🚶',n:'Walk outside',p:2500,m:10},{e:'😴',n:'Power nap',p:4000,m:15}];
+const BASE=[{e:'💧',n:'Water break',m:5,pc:{NGN:1000,GBP:1.5,USD:2}},{e:'📱',n:'Phone scroll',m:5,pc:{NGN:1500,GBP:2,USD:2.5}},{e:'🍫',n:'Snack',m:3,pc:{NGN:800,GBP:2,USD:2.5}},{e:'🧘',n:'Stretch break',m:3,pc:{NGN:500,GBP:1,USD:1}},{e:'🚶',n:'Walk outside',m:10,pc:{NGN:2500,GBP:5,USD:6}},{e:'😴',n:'Power nap',m:15,pc:{NGN:4000,GBP:8,USD:10}}];
 const $=id=>document.getElementById(id);
 const day=()=>new Date().toDateString();
 let S={bal:0,total:0,sessions:0,dayN:0,day:day(),custom:[],log:[]};
@@ -157,7 +199,10 @@ const fresh=()=>({bal:0,total:0,sessions:0,dayN:0,day:day(),custom:[],log:[]});
 const dkey=t=>{const d=new Date(t);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const log=e=>{S.log=S.log||[];S.log.push(Object.assign({t:Date.now()},e));if(S.log.length>3000)S.log.splice(0,S.log.length-3000)};
-const money=n=>'₦'+n.toLocaleString('en-NG',{minimumFractionDigits:2,maximumFractionDigits:2});
+const CUR={NGN:{s:'₦',fx:1,loc:'en-NG'},GBP:{s:'£',fx:.002,loc:'en-GB'},USD:{s:'$',fx:.0025,loc:'en-US'}};
+const cc=()=>CUR[S.cur||'NGN'];
+const money=n=>{const c=cc();return c.s+(n*c.fx).toLocaleString(c.loc,{minimumFractionDigits:2,maximumFractionDigits:2})};
+const ip=it=>it.pc?Math.round(it.pc[S.cur||'NGN']/cc().fx):ip(it);
 const clock=ms=>{const s=Math.max(0,Math.ceil(ms/1000));return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')};
 let run=null,brk=null,gm=null,tt;
 function toast(t){const e=$('toast');e.textContent=t;e.classList.remove('hide');clearTimeout(tt);tt=setTimeout(()=>e.classList.add('hide'),2800)}
@@ -174,7 +219,7 @@ function render(){
   $('bal').textContent=money(S.bal+(run?p:0));
   $('st1').textContent=S.dayN+' sessions today';
   $('st2').textContent=money(S.total)+' earned all-time';
-  if(run){const kk=Math.floor(p/1000);if(kk>run.k){run.k=kk;SND.ping();toast('₦'+(kk*1000).toLocaleString()+' banked so far')}const left=run.dur-elapsed();$('time').textContent=clock(left);$('pend').textContent=run.pa?'Paused':'+'+money(p)+' this session'+(run.mult>1?' · ×'+run.mult.toFixed(1):'');$('arc').style.strokeDashoffset=565.5*(left/run.dur);if(left<=0)finish()}
+  if(run){const kk=Math.floor(p/1000);if(kk>run.k){run.k=kk;SND.ping();toast(money(kk*1000).replace(/\.00$/,'')+' banked so far')}const left=run.dur-elapsed();$('time').textContent=clock(left);$('pend').textContent=run.pa?'Paused':'+'+money(p)+' this session'+(run.mult>1?' · ×'+run.mult.toFixed(1):'');$('arc').style.strokeDashoffset=565.5*(left/run.dur);if(left<=0)finish()}
   liveUI();if(brk){const l=brk.end-Date.now();$('btime').textContent=clock(l);if(l<=0){brk=null;SND.over();notify('Break over','Time to lock in.');toast('Break over. Time to lock in.');view('focus');showShop()}}
 }
 function finish(){const p=pending();S.bal+=p;S.total+=p;S.sessions++;S.dayN++;
@@ -186,16 +231,16 @@ function finish(){const p=pending();S.bal+=p;S.total+=p;S.sessions++;S.dayN++;
   if(!S.hits[dk]&&focusToday()>=(S.goal||GOAL)){S.hits[dk]=true;const st=streak();bonus=1000*Math.min(st,5);S.bal+=bonus;S.total+=bonus;log({k:'bonus',amt:bonus,streak:st})}
   save();const msg='Session complete! +'+money(p)+(bonus?' · Daily goal hit! +'+money(bonus)+' 🔥':'');toast(msg);SND.done();notify('Session complete 🎉',msg);rain();run=null;ui();view('shop');openCI(en,tk)}
 function hello(){$('hello').textContent=S.name?'Hello, '+S.name+' 👋':''}
-function ui(){hello();refreshTb();$('setup').classList.toggle('hide',!!run||gated());$('gate').classList.toggle('hide',!gated()||!!run);$('live').classList.toggle('hide',!run);$('ctask').textContent=run?(run.task||'Locked in'):'';if(!run){$('time').textContent=clock($('len').value*60000);$('pend').textContent='+₦0.00 this session';$('arc').style.strokeDashoffset=565.5}showShop()}
+function ui(){hello();refreshTb();$('setup').classList.toggle('hide',!!run||gated());$('gate').classList.toggle('hide',!gated()||!!run);$('live').classList.toggle('hide',!run);$('ctask').textContent=run?(run.task||'Locked in'):'';if(!run){$('time').textContent=clock($('len').value*60000);$('pend').textContent='+'+money(0)+' this session';$('arc').style.strokeDashoffset=565.5}showShop()}
 function showShop(){renderPark();
   $('brk').classList.toggle('hide',!brk);$('store').classList.toggle('hide',!!brk);
   if(brk)$('bname').textContent=brk.name;
   const box=$('items');box.innerHTML='';
-  BASE.concat(S.custom).forEach(it=>{const b=document.createElement('button');b.className='item';b.disabled=S.bal<it.p||!!run;
-    b.innerHTML='<span class="e">'+it.e+'</span>'+it.n+'<span class="p">'+money(it.p).replace('.00','')+'</span><span class="m">'+it.m+' min break'+'</span>';
+  BASE.concat(S.custom).forEach(it=>{const b=document.createElement('button');b.className='item';b.disabled=S.bal<ip(it)||!!run;
+    b.innerHTML='<span class="e">'+it.e+'</span>'+it.n+'<span class="p">'+money(ip(it)).replace(/\.00$/,String())+'</span><span class="m">'+it.m+' min break'+'</span>';
     b.onclick=()=>buy(it);box.appendChild(b)});
 }
-function buy(it){if(S.bal<it.p)return;S.bal-=it.p;log({k:'spend',name:it.n,amt:it.p});save();SND.spend();{brk={end:Date.now()+it.m*60000,name:it.e+' '+it.n};toast('Enjoy it. Spent '+money(it.p).replace('.00',''))}showShop();render()}
+function buy(it){if(S.bal<ip(it))return;S.bal-=ip(it);log({k:'spend',name:it.n,amt:ip(it)});save();SND.spend();{brk={end:Date.now()+it.m*60000,name:it.e+' '+it.n};toast('Enjoy it. Spent '+money(ip(it)).replace(/\.00$/,String()))}showShop();render()}
 
 function view(v){['focus','tasks','shop','hist'].forEach(k=>{$('v-'+k).classList.toggle('hide',k!==v);$('t-'+k).setAttribute('aria-selected',k===v)});if(v==='shop')showShop();if(v==='hist')hist();if(v==='tasks')renderTasks()}
 $('t-focus').onclick=()=>view('focus');$('t-shop').onclick=()=>view('shop');$('t-hist').onclick=()=>view('hist');$('t-tasks').onclick=()=>view('tasks');
@@ -203,12 +248,12 @@ $('len').onchange=ui;
 $('start').onclick=()=>{if(brk){brk=null}ctx();SND.start();try{if('Notification' in window&&Notification.permission==='default')Notification.requestPermission()}catch(e){}const cb=(S.lastEnd&&Date.now()-S.lastEnd<=COMBO_MS)?(S.combo||0)+1:0;run={start:Date.now(),dur:$('len').value*60000,task:$('task').value.trim(),fines:0,k:0,pt:0,pa:0,combo:cb,mult:1+0.1*Math.min(cb,5),taskId:curTid};if(cb)toast('Combo ×'+run.mult.toFixed(1)+' 🔗 earning boosted');ui();render()};
 $('quit').onclick=()=>{if(confirm('Quit now? You lose '+money(pending())+' from this session.')){log({k:'quit',task:run.task,amt:pending()});S.combo=0;S.lastEnd=0;save();run=null;ui();render();toast('Session abandoned. No cash earned.')}};
 $('back').onclick=()=>{brk=null;view('focus');showShop();render()};
-$('add').onclick=()=>{const n=$('cn').value.trim(),p=+$('cp').value,m=+$('cm').value;if(!n||p<100||m<1){toast('Add a name, a price of ₦100+, and minutes.');return}S.custom.push({e:'⭐',n,p,m});save();$('cn').value=$('cp').value=$('cm').value='';showShop()};
+$('add').onclick=()=>{const n=$('cn').value.trim(),p=Math.round(+$('cp').value/cc().fx),m=+$('cm').value;if(!n||p<100||m<1){toast('Add a name, a price and minutes.');return}S.custom.push({e:'⭐',n,p,m});save();$('cn').value=$('cp').value=$('cm').value='';showShop()};
 document.addEventListener('visibilitychange',()=>{if(document.hidden)push();else render()});
 const sndBtn=$('snd');const lab=()=>sndBtn.textContent=soundOn?'🔔 Sound on':'🔕 Sound off';lab();
 sndBtn.onclick=()=>{soundOn=!soundOn;try{localStorage.setItem('lockin-snd',soundOn?'1':'0')}catch(e){}lab();if(soundOn)SND.ping()};
 try{const w=new Worker(URL.createObjectURL(new Blob(['setInterval(()=>postMessage(1),250)'],{type:'text/javascript'})));w.onmessage=render}catch(e){}
-const N0=n=>'₦'+Math.round(n).toLocaleString('en-NG');
+const N0=n=>{const c=cc(),d=c.fx===1?0:2;return c.s+(n*c.fx).toLocaleString(c.loc,{minimumFractionDigits:d,maximumFractionDigits:d})};
 function stat(k,v){return '<div class="item" style="cursor:default"><span class="m">'+k+'</span><span class="p" style="color:var(--ink)">'+v+'</span></div>'}
 const openD=new Set([dkey(Date.now())]);let showDays=14;
 function dlab(k){if(k===dkey(Date.now()))return'Today';const y=new Date();y.setDate(y.getDate()-1);if(k===dkey(y))return'Yesterday';const[a,b,c]=k.split('-');return new Date(a,b-1,c).toLocaleDateString([],{weekday:'short',day:'numeric',month:'short'})}
@@ -230,36 +275,44 @@ function hist(){
 }
 $('exp').onclick=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(S)],{type:'application/json'}));a.download='lockin-backup-'+dkey(Date.now())+'.json';a.click()};
 $('imp').onclick=()=>$('impf').click();
-$('impf').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(typeof d.bal!=='number')throw 0;if(confirm('Replace your current data with this backup?')){S=Object.assign(S,d);save();ui();render();hist();toast('Backup restored')}}catch(x){toast('That file is not a valid Lock In backup.')}};r.readAsText(f)};
+$('impf').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(typeof d.bal!=='number')throw 0;if(confirm('Replace your current data with this backup?')){S=Object.assign(S,d);save();applyCur();hist();toast('Backup restored')}}catch(x){toast('That file is not a valid Lock In backup.')}};r.readAsText(f)};
 
 const CLOUD=!SB_URL.includes('YOUR_')&&!!window.supabase;
 let skip=false,authReady=!CLOUD;try{skip=sessionStorage.getItem('lockin-skip')==='1'}catch(e){}
 const gated=()=>CLOUD&&authReady&&!user&&!skip;
-let sb=null,user=null,syncT;
+let amode='up';try{if(localStorage.getItem('lockin-acct'))amode='in'}catch(e){}
+let sb=null,user=null,syncT,syncFail=false;
 function setSync(t){const e=$('sync');if(e)e.textContent=t}
 function queuePush(){if(!sb||!user)return;clearTimeout(syncT);syncT=setTimeout(push,1500)}
-async function push(){if(!sb||!user)return;clearTimeout(syncT);const{error}=await sb.from('lockin_data').upsert({user_id:user.id,data:S,updated_at:new Date().toISOString()});setSync(error?'Sync failed, will retry on your next action':'Synced '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}))}
+async function push(){if(!sb||!user)return;clearTimeout(syncT);let error=null;
+  try{const r=await sb.from('lockin_data').upsert({user_id:user.id,data:S,updated_at:new Date().toISOString()});error=r.error}catch(x){error=x}
+  if(error){console.error('Lock In sync error',error);const m=error.message||error.code||'unknown error';setSync('Sync failed: '+m);if(!syncFail){syncFail=true;toast('Sync failed: '+m)}}
+  else{syncFail=false;setSync('Synced '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}))}}
 async function pull(){
   const{data,error}=await sb.from('lockin_data').select('data').eq('user_id',user.id).maybeSingle();
   if(error){toast('Could not load your saved history: '+error.message);return}
   if(S.uid&&S.uid!==user.id)S=fresh();
   if(data&&data.data){const c=data.data,m=new Map();(S.log||[]).concat(c.log||[]).forEach(e=>m.set(e.t+'|'+e.k,e));const logs=[...m.values()].sort((a,b)=>a.t-b.t);const cloudNewer=(c.upd||0)>=(S.upd||0);S=Object.assign({},S,cloudNewer?c:{});S.log=logs}
-  S.uid=user.id;if(user.user_metadata&&user.user_metadata.name)S.name=user.user_metadata.name;save();accUI();ui();render();hist();toast('History synced')}
+  S.uid=user.id;const md=user.user_metadata||{};if(md.name)S.name=md.name;if(!(data&&data.data)&&md.cur)S.cur=md.cur;save();accUI();applyCur();hist();toast('History synced')}
 async function setUser(u){const prev=user;user=u||null;authReady=true;accUI();ui();if(user&&(!prev||prev.id!==user.id))await pull()}
 async function auth(m,x){const email=$(x+'em').value.trim(),password=$(x+'pw').value;if(!email||password.length<6){toast('Enter your email and a password of 6+ characters.');return}
-  const nm=$(x+'nm').value.trim();if(m==='up'&&!nm){toast('Add your preferred name to create an account.');return}
-  const r=m==='in'?await sb.auth.signInWithPassword({email,password}):await sb.auth.signUp({email,password,options:{data:{name:nm}}});
+  const nm=m==='up'?$(x+'nm').value.trim():'',cu=$(x+'cu').value;if(m==='up'&&!nm){toast('Add your preferred name to create an account.');return}
+  const r=m==='in'?await sb.auth.signInWithPassword({email,password}):await sb.auth.signUp({email,password,options:{data:{name:nm,cur:cu}}});
   if(r.error){toast(r.error.message);return}
-  if(m==='up'&&!r.data.session)toast('Check your email to confirm, then sign in.')}
+  try{localStorage.setItem('lockin-acct','1')}catch(e){}
+  if(m==='up'&&!r.data.session){amode='in';applyMode();toast('Check your email to confirm, then sign in.')}}
+function applyMode(){const up=amode==='up';['h','g'].forEach(x=>{const b=$(x+'go');if(!b)return;$(x+'upn').classList.toggle('hide',!up);$(x+'upc').classList.toggle('hide',!up);b.textContent=up?'Create account':'Sign in';$(x+'sw').textContent=up?'Already have an account? Sign in':'New here? Create an account'});
+  if($('gttl'))$('gttl').textContent=up?'join the club':'welcome back';if($('httl'))$('httl').textContent=up?'Create an account to save your history':'Sign in to your account'}
 async function saveName(){const n=$('nm2').value.trim().slice(0,24);if(!n){toast('Enter a name first.');return}S.name=n;save();hello();try{await sb.auth.updateUser({data:{name:n}})}catch(e){}toast('Name saved')}
-async function signOut(){clearTimeout(syncT);await push();user=null;skip=false;try{sessionStorage.removeItem('lockin-skip')}catch(e){}await sb.auth.signOut();S=fresh();save();accUI();ui();render();hist();toast('Signed out')}
+async function signOut(){clearTimeout(syncT);await push();user=null;skip=false;try{sessionStorage.removeItem('lockin-skip')}catch(e){}await sb.auth.signOut();S=fresh();save();accUI();applyCur();hist();toast('Signed out')}
 function accUI(){const a=$('acct');
   if(!CLOUD){a.innerHTML='<p class="hint" style="text-align:left;margin:0">Cloud sync is off. History is saved on this device only.</p>';return}
-  if(user){a.innerHTML='<div class="row" style="align-items:center;justify-content:space-between;margin:0"><span style="font-size:14px">Signed in as <b>'+esc(user.email)+'</b><br><span id="sync" style="color:var(--mute);font-size:12px">Your history is saved to your account</span></span><button class="snd" id="so" style="color:var(--ink);border-color:var(--line)">Sign out</button></div><div class="row" style="margin:10px 0 0"><input id="nm2" placeholder="Preferred name" maxlength="24" value="'+esc(S.name||'')+'"><button class="go" id="nmb" style="width:auto;padding:0 16px;font-size:14px">Save name</button></div>';$('so').onclick=signOut;$('nmb').onclick=saveName}
-  else{const f=x=>'<div class="row" style="margin-top:8px"><input id="'+x+'nm" placeholder="Preferred name (for new accounts)" maxlength="24" autocomplete="nickname"></div><div class="row"><input id="'+x+'em" type="email" placeholder="Email" autocomplete="email"></div><div class="row"><input id="'+x+'pw" type="password" placeholder="Password (6+ characters)" autocomplete="current-password"></div><div class="row" style="margin:0"><button class="go" id="'+x+'si" style="font-size:14px;padding:11px">Sign in</button><button class="go" id="'+x+'su" style="font-size:14px;padding:11px;background:var(--card);color:var(--ink);border:1px solid var(--line)">Create account</button></div>';
-    a.innerHTML='<b>Save your history to your account</b>'+f('h');
-    $('gate').innerHTML='<b class="big" style="font-size:20px">Save your progress first</b><p class="hint" style="text-align:left;margin:4px 0 0">Sign in so your wallet and history follow you to any device.</p>'+f('g')+'<p class="hint"><button class="snd" id="skip" style="color:var(--mute);border-color:var(--line);background:transparent">Continue without saving</button></p>';
-    ['h','g'].forEach(x=>{$(x+'si').onclick=()=>auth('in',x);$(x+'su').onclick=()=>auth('up',x)});
+  if(user){a.innerHTML='<div class="row" style="align-items:center;justify-content:space-between;margin:0"><span style="font-size:14px">Signed in as <b>'+esc(user.email)+'</b><br><span id="sync" style="color:var(--mute);font-size:12px">Your history is saved to your account</span></span><button class="snd" id="so" style="color:var(--ink);border-color:var(--line)">Sign out</button></div><div class="row" style="margin:10px 0 0"><input id="nm2" placeholder="Preferred name" maxlength="24" value="'+esc(S.name||'')+'"><button class="go" id="nmb" style="width:auto;padding:0 16px;font-size:14px">Save name</button></div><div class="row" style="margin:10px 0 0"><button class="mini" id="retry">Sync now</button></div>';$('retry').onclick=async()=>{setSync('Syncing…');await push()};$('so').onclick=signOut;$('nmb').onclick=saveName}
+  else{const f=x=>'<div class="row" id="'+x+'upn" style="margin-top:10px"><input id="'+x+'nm" placeholder="Preferred name" maxlength="24" autocomplete="nickname"></div><div class="row" id="'+x+'upc"><select id="'+x+'cu" aria-label="Currency"><option value="NGN">₦ Naira</option><option value="GBP">£ Pounds</option><option value="USD">$ Dollars</option></select></div><div class="row"><input id="'+x+'em" type="email" placeholder="Email" autocomplete="email"></div><div class="row"><input id="'+x+'pw" type="password" placeholder="Password (6+ characters)" autocomplete="current-password"></div><button class="go" id="'+x+'go" style="width:100%;font-size:15px;padding:13px"></button><p class="hint"><button class="mini" id="'+x+'sw" style="background:transparent;border:0;text-decoration:underline;font-size:13px"></button></p>';
+    a.innerHTML='<b id="httl"></b>'+f('h');
+    $('gate').innerHTML='<div class="ser" id="gttl"></div><p class="hint" style="margin:6px 0 0">Your wallet and history follow you to any device.</p>'+f('g')+'<p class="hint"><button class="mini" id="skip" style="background:transparent;border:0;color:var(--mute);font-size:13px">Continue without saving</button></p>';
+    ['h','g'].forEach(x=>{$(x+'cu').value=S.cur||'NGN';$(x+'go').onclick=()=>auth(amode,x);$(x+'sw').onclick=()=>{amode=amode==='up'?'in':'up';applyMode()}});
+    applyMode();
     $('skip').onclick=()=>{skip=true;try{sessionStorage.setItem('lockin-skip','1')}catch(e){}ui()}}}
 function initCloud(){if(!CLOUD)return;sb=supabase.createClient(SB_URL,SB_KEY);sb.auth.onAuthStateChange((_e,s)=>{setUser(s&&s.user)})}
 accUI();initCloud();
@@ -279,7 +332,7 @@ function liveUI(){
   else{const c=S.lastEnd&&Date.now()-S.lastEnd<=COMBO_MS,n=c?(S.combo||0)+1:0;
     $('cmb').textContent=c?'🔗 Combo live! Start within '+clock(S.lastEnd+COMBO_MS-Date.now())+' for ×'+(1+0.1*Math.min(n,5)).toFixed(1)+' earnings':'Start within 10 min of finishing a session to build a combo (up to ×1.5).'}
 }
-$('gedit').onclick=()=>{const v=prompt('Daily goal in ₦ (for example 10000)',S.goal||GOAL);if(v===null)return;const n=Math.round(+String(v).replace(/[^\d.]/g,''));if(n>=500){S.goal=n;save();liveUI();toast('Goal updated')}else toast('Enter an amount of ₦500 or more.')};
+$('gedit').onclick=()=>{const c=cc(),v=prompt('Daily goal in '+c.s+' (for example '+(10000*c.fx)+')',+((S.goal||GOAL)*c.fx).toFixed(2));if(v===null)return;const n=Math.round(+String(v).replace(/[^\d.]/g,'')/c.fx);if(n>=500){S.goal=n;save();liveUI();toast('Goal updated')}else toast('Enter a bigger amount.')};
 $('pause').onclick=()=>{if(!run||run.pa)return;if(pausesLeft()<=0){toast('No pauses left today.');return}S.pu.n++;save();run.pa=Date.now();SND.ping();toast('Paused for 20 seconds');liveUI()};
 function renderPark(){const P=S.park||[],b=$('parkS');b.classList.toggle('hide',!P.length);if(!P.length)return;
   b.innerHTML='<b class="big" style="font-size:18px">Parked thoughts</b><p class="hint" style="text-align:left;margin:2px 0 6px">Deal with these now, on your break.</p>'+P.map(x=>'<div style="display:flex;gap:8px;align-items:center;padding:6px 0;font-size:14px"><span style="flex:1">💭 '+esc(x.text)+'</span><button class="mini" data-a="task" data-i="'+x.id+'">→ Task</button><button class="mini" data-a="del" data-i="'+x.id+'" aria-label="Done">✓</button></div>').join('')+'<hr style="border:0;border-top:1px solid var(--line);margin:12px 0">'}
@@ -299,11 +352,15 @@ function openCI(e,t){ciE=e;ciT=t;ciR=0;$('cin').value='';$('cid').checked=false;
 document.querySelectorAll('#ci .rb').forEach(b=>b.onclick=()=>{ciR=+b.dataset.r;document.querySelectorAll('#ci .rb').forEach(x=>x.setAttribute('aria-pressed',x===b))});
 $('cisave').onclick=()=>{if(ciE){if(ciR)ciE.rate=ciR;const n=$('cin').value.trim();if(n)ciE.note=n.slice(0,100)}if(ciT&&$('cid').checked)ciT.done=true;save();$('ci').classList.add('hide');renderTasks();if(!$('v-hist').classList.contains('hide'))hist()};
 $('ciskip').onclick=()=>$('ci').classList.add('hide');
+const CK=['NGN','GBP','USD'];
+function lenOpts(){const v=$('len').value||'25';$('len').innerHTML=[15,25,50].map(m=>'<option value="'+m+'"'+(String(m)===v?' selected':'')+'>'+m+' min → '+money(m*RATE).replace(/\.00$/,'')+'</option>').join('')}
+function applyCur(){lenOpts();$('ratehint').textContent='You earn '+money(RATE).replace(/\.00$/,'')+' for every minute you stay locked in.';$('cp').placeholder='Price ('+cc().s+')';$('cur').textContent='💱 '+(S.cur||'NGN');ui();showShop();render();if(!$('v-hist').classList.contains('hide'))hist()}
+$('cur').onclick=()=>{S.cur=CK[(CK.indexOf(S.cur||'NGN')+1)%3];save();applyCur()};
 const rootEl=document.documentElement;
 const curTheme=()=>rootEl.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
 const themeBtn=()=>$('theme').textContent=curTheme()==='dark'?'☀️':'🌙';
 $('theme').onclick=()=>{const t=curTheme()==='dark'?'light':'dark';rootEl.dataset.theme=t;try{localStorage.setItem('lockin-theme',t)}catch(e){}themeBtn()};themeBtn();
-ui();view('focus');render();setInterval(render,200);
+applyCur();ui();view('focus');render();setInterval(render,200);
 </script>
 </body>
 </html>
