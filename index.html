@@ -153,12 +153,12 @@ input,select{border-radius:999px;border:1.5px solid var(--ink);background:var(--
       <button class="go" id="back" style="margin-top:12px">Back to work</button>
     </div>
     <div id="store">
-      <b class="big" style="font-size:20px">Spend your break money</b>
+      <div class="row" style="justify-content:space-between;align-items:center;margin:0"><b class="big" style="font-size:20px">Spend your break money</b><button class="mini" id="edit">Edit shop</button></div>
       <div class="shop" id="items"></div>
-      <details style="margin-top:14px"><summary style="cursor:pointer;font-weight:600">Add your own reward</summary>
-        <div class="row" style="margin-top:10px"><input id="cn" placeholder="e.g. Watch one reel" maxlength="30" aria-label="Reward name"></div>
+      <details style="margin-top:14px"><summary id="dsum" style="cursor:pointer;font-weight:600">Add your own reward</summary>
+        <div class="row" style="margin-top:10px"><input id="ce" placeholder="Emoji" maxlength="4" aria-label="Emoji" style="max-width:84px"><input id="cn" placeholder="e.g. Watch one reel" maxlength="30" aria-label="Reward name"></div>
         <div class="row"><input id="cp" type="number" min="0" step="any" placeholder="Price" aria-label="Price"><input id="cm" type="number" min="1" max="30" placeholder="Minutes" aria-label="Minutes"></div>
-        <button class="go" id="add" style="font-size:15px;padding:11px">Add to shop</button>
+        <button class="go" id="add" style="font-size:15px;padding:11px">Add to shop</button><div class="row hide" id="eb" style="margin:10px 0 0;flex-wrap:wrap"><button class="mini hide" id="del">Delete item</button><button class="mini" id="cx">Cancel</button><button class="mini" id="rst">Restore defaults</button></div>
       </details>
     </div>
   </section>
@@ -202,7 +202,7 @@ const log=e=>{S.log=S.log||[];S.log.push(Object.assign({t:Date.now()},e));if(S.l
 const CUR={NGN:{s:'₦',fx:1,loc:'en-NG'},GBP:{s:'£',fx:.002,loc:'en-GB'},USD:{s:'$',fx:.0025,loc:'en-US'}};
 const cc=()=>CUR[S.cur||'NGN'];
 const money=n=>{const c=cc();return c.s+(n*c.fx).toLocaleString(c.loc,{minimumFractionDigits:2,maximumFractionDigits:2})};
-const ip=it=>it.pc?Math.round(it.pc[S.cur||'NGN']/cc().fx):ip(it);
+const ip=it=>it.pc?Math.round(it.pc[S.cur||'NGN']/cc().fx):it.p;
 const clock=ms=>{const s=Math.max(0,Math.ceil(ms/1000));return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')};
 let run=null,brk=null,gm=null,tt;
 function toast(t){const e=$('toast');e.textContent=t;e.classList.remove('hide');clearTimeout(tt);tt=setTimeout(()=>e.classList.add('hide'),2800)}
@@ -236,9 +236,9 @@ function showShop(){renderPark();
   $('brk').classList.toggle('hide',!brk);$('store').classList.toggle('hide',!!brk);
   if(brk)$('bname').textContent=brk.name;
   const box=$('items');box.innerHTML='';
-  BASE.concat(S.custom).forEach(it=>{const b=document.createElement('button');b.className='item';b.disabled=S.bal<ip(it)||!!run;
+  shopItems().forEach(it=>{const b=document.createElement('button');b.className='item';b.disabled=!editMode&&(S.bal<ip(it)||!!run);b.style.outline=editMode?'2px dashed #171717':'';
     b.innerHTML='<span class="e">'+it.e+'</span>'+it.n+'<span class="p">'+money(ip(it)).replace(/\.00$/,String())+'</span><span class="m">'+it.m+' min break'+'</span>';
-    b.onclick=()=>buy(it);box.appendChild(b)});
+    b.onclick=()=>editMode?startEdit(it):buy(it);box.appendChild(b)});
 }
 function buy(it){if(S.bal<ip(it))return;S.bal-=ip(it);log({k:'spend',name:it.n,amt:ip(it)});save();SND.spend();{brk={end:Date.now()+it.m*60000,name:it.e+' '+it.n};toast('Enjoy it. Spent '+money(ip(it)).replace(/\.00$/,String()))}showShop();render()}
 
@@ -248,7 +248,18 @@ $('len').onchange=ui;
 $('start').onclick=()=>{if(brk){brk=null}ctx();SND.start();try{if('Notification' in window&&Notification.permission==='default')Notification.requestPermission()}catch(e){}const cb=(S.lastEnd&&Date.now()-S.lastEnd<=COMBO_MS)?(S.combo||0)+1:0;run={start:Date.now(),dur:$('len').value*60000,task:$('task').value.trim(),fines:0,k:0,pt:0,pa:0,combo:cb,mult:1+0.1*Math.min(cb,5),taskId:curTid};if(cb)toast('Combo ×'+run.mult.toFixed(1)+' 🔗 earning boosted');ui();render()};
 $('quit').onclick=()=>{if(confirm('Quit now? You lose '+money(pending())+' from this session.')){log({k:'quit',task:run.task,amt:pending()});S.combo=0;S.lastEnd=0;save();run=null;ui();render();toast('Session abandoned. No cash earned.')}};
 $('back').onclick=()=>{brk=null;view('focus');showShop();render()};
-$('add').onclick=()=>{const n=$('cn').value.trim(),p=Math.round(+$('cp').value/cc().fx),m=+$('cm').value;if(!n||p<100||m<1){toast('Add a name, a price and minutes.');return}S.custom.push({e:'⭐',n,p,m});save();$('cn').value=$('cp').value=$('cm').value='';showShop()};
+let editMode=false,editId=null;
+const shopItems=()=>BASE.map((b,i)=>Object.assign({},b,(S.ov||{})[i]||{},{id:'b'+i})).filter(x=>!x.del).concat((S.custom||[]).map((c,i)=>Object.assign({},c,{id:'c'+i})));
+function resetForm(){editId=null;['ce','cn','cp','cm'].forEach(i=>$(i).value='');$('add').textContent='Add to shop';$('dsum').textContent='Add your own reward';$('del').classList.add('hide')}
+function startEdit(it){editId=it.id;$('ce').value=it.e;$('cn').value=it.n;$('cp').value=String(+(ip(it)*cc().fx).toFixed(2));$('cm').value=it.m;$('add').textContent='Save changes';$('dsum').textContent='Editing: '+it.n;$('del').classList.remove('hide');const d=$('dsum').parentElement;d.open=true;d.scrollIntoView({block:'center'})}
+$('add').onclick=()=>{const n=$('cn').value.trim(),p=Math.round(+$('cp').value/cc().fx),m=+$('cm').value,e=$('ce').value.trim()||'⭐';if(!n||p<100||m<1){toast('Add a name, a price and minutes.');return}
+  if(editId){const k=editId[0],i=+editId.slice(1);if(k==='c')S.custom[i]=Object.assign(S.custom[i],{e,n,p,m});else{S.ov=S.ov||{};S.ov[i]=Object.assign(S.ov[i]||{},{e,n,p,m,pc:null})}toast('Saved')}
+  else(S.custom=S.custom||[]).push({e,n,p,m});
+  save();resetForm();showShop()};
+$('del').onclick=()=>{if(!editId)return;const k=editId[0],i=+editId.slice(1);if(k==='c')S.custom.splice(i,1);else{S.ov=S.ov||{};S.ov[i]=Object.assign(S.ov[i]||{},{del:true})}save();resetForm();showShop()};
+$('cx').onclick=resetForm;
+$('rst').onclick=()=>{if(confirm('Bring back the original shop items and prices? Your own rewards stay.')){S.ov={};save();resetForm();showShop()}};
+$('edit').onclick=()=>{editMode=!editMode;$('edit').textContent=editMode?'Done':'Edit shop';$('eb').classList.toggle('hide',!editMode);if(!editMode)resetForm();showShop()};
 document.addEventListener('visibilitychange',()=>{if(document.hidden)push();else render()});
 const sndBtn=$('snd');const lab=()=>sndBtn.textContent=soundOn?'🔔 Sound on':'🔕 Sound off';lab();
 sndBtn.onclick=()=>{soundOn=!soundOn;try{localStorage.setItem('lockin-snd',soundOn?'1':'0')}catch(e){}lab();if(soundOn)SND.ping()};
