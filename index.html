@@ -112,6 +112,18 @@ nav button{flex:none;text-align:left;padding:13px 20px;font-size:15px}
 .shop{grid-template-columns:repeat(3,1fr)}
 .wm{font-size:40px}
 }
+.wallet{flex-wrap:wrap;gap:12px;min-width:0}
+.wallet>div{min-width:0}
+#bal{overflow-wrap:anywhere}
+.stats{text-align:left}
+@media (min-width:900px){
+.layout{grid-template-columns:380px 1fr}
+.wallet{flex-direction:column;align-items:flex-start;gap:16px;padding:28px 26px}
+.wallet #bal{font-size:clamp(40px,4vw,56px)}
+.stats,.sb{width:100%}
+.sb{justify-content:flex-start}
+}
+@media (min-width:1200px){.layout{grid-template-columns:420px 1fr}}
 </style>
 </head>
 <body>
@@ -119,8 +131,8 @@ nav button{flex:none;text-align:left;padding:13px 20px;font-size:15px}
   <header class="hd"><span style="width:46px;flex:none;display:block"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Lock In logo"><rect x="6" y="6" width="116" height="116" rx="32" fill="#BFE2EF" stroke="#171717" stroke-width="5"/><path d="M44 64V48a20 20 0 0 1 40 0V64" fill="none" stroke="#171717" stroke-width="17" stroke-linecap="round"/><path d="M44 64V48a20 20 0 0 1 40 0V64" fill="none" stroke="#FFFDF8" stroke-width="8" stroke-linecap="round"/><rect x="32" y="60" width="64" height="50" rx="16" fill="#FFE27A" stroke="#171717" stroke-width="5"/><path d="M54 95V77L74 95V77" fill="none" stroke="#171717" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M49 84H79M49 89H79" stroke="#171717" stroke-width="3.5" stroke-linecap="round"/><path d="M104 8l4.5 10 11 1-8.300 7.500 2.600 10.800-9.800-5.800-9.800 5.800 2.600-10.800-8.300-7.500 11-1z" fill="#F6C945" stroke="#171717" stroke-width="3" stroke-linejoin="round" transform="translate(-4 4) scale(.9)"/></svg></span><span class="wm" aria-label="Lock In"><b style="color:#FFFDF8">l</b><b style="color:#CFE6B4">o</b><b style="color:#FFF0A3">c</b><b style="color:#F8C6D4">k</b>&nbsp;<b style="color:#BFE2EF">i</b><b style="color:#FFFDF8">n</b><b style="color:#FFE27A">.</b></span><span id="hello" class="big hello"></span><button id="theme" class="mini" aria-label="Switch between dark and light mode" style="font-size:16px;padding:6px 10px"></button></header>
   <div class="tick" aria-hidden="true"><div class="trk"><span>LOCK IN ✦ EARN WHILE YOU FOCUS ✦ SPEND IT ON BREAKS ✦ KEEP THE STREAK ✦ LOCK IN ✦ EARN WHILE YOU FOCUS ✦ SPEND IT ON BREAKS ✦ KEEP THE STREAK ✦ LOCK IN ✦ EARN WHILE YOU FOCUS ✦ SPEND IT ON BREAKS ✦ KEEP THE STREAK ✦ </span><span>LOCK IN ✦ EARN WHILE YOU FOCUS ✦ SPEND IT ON BREAKS ✦ KEEP THE STREAK ✦ LOCK IN ✦ EARN WHILE YOU FOCUS ✦ SPEND IT ON BREAKS ✦ KEEP THE STREAK ✦ LOCK IN ✦ EARN WHILE YOU FOCUS ✦ SPEND IT ON BREAKS ✦ KEEP THE STREAK ✦ </span></div></div>
   <div class="layout"><aside class="side"><section class="wallet" aria-live="off">
-    <div><span class="tag">focus fund</span><small>your wallet</small><div class="big" id="bal">₦0.00</div></div>
-    <div class="stats"><div id="st1"></div><div id="st2"></div><div class="sb"><button class="snd" id="snd">🔔 Sound on</button><button class="snd" id="cur"></button></div></div>
+    <div><span class="tag">focus fund</span><small>your wallet</small><div class="big" id="bal">₦0.00</div><small id="sday" style="margin-top:6px"></small></div>
+    <div class="stats"><div class="sb"><button class="snd" id="snd">🔔 Sound on</button><button class="snd" id="cur"></button></div></div>
   </section>
   <nav role="tablist">
     <button role="tab" id="t-focus" aria-selected="true">Focus</button>
@@ -182,6 +194,7 @@ nav button{flex:none;text-align:left;padding:13px 20px;font-size:15px}
 <section id="v-hist" class="card hide">
     <div id="acct" style="margin-bottom:16px"></div>
     
+    <div class="shop" style="margin:0 0 12px"><div class="item" style="cursor:default"><span class="m">sessions today</span><span class="p" id="st1">0</span></div><div class="item" style="cursor:default"><span class="m">all-time earned</span><span class="p" id="st2">0</span></div></div>
     <div id="hsum" class="shop" style="margin:0 0 12px"></div>
     <div id="hlist"></div>
     <b class="big" style="font-size:18px;display:block;margin-top:16px">Focus minutes, last 7 days</b>
@@ -211,7 +224,7 @@ const $=id=>document.getElementById(id);
 const day=()=>new Date().toDateString();
 let S={bal:0,total:0,sessions:0,dayN:0,day:day(),custom:[],log:[]};
 try{const x=JSON.parse(localStorage.getItem('lockin-v1')||'null');if(x)S=Object.assign(S,x)}catch(e){}
-if(S.day!==day()){S.day=day();S.dayN=0}
+
 const save=()=>{S.upd=Date.now();try{localStorage.setItem('lockin-v1',JSON.stringify(S))}catch(e){}queuePush()};
 const fresh=()=>({bal:0,total:0,sessions:0,dayN:0,day:day(),custom:[],log:[]});
 const dkey=t=>{const d=new Date(t);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
@@ -235,8 +248,8 @@ function pending(){if(!run)return 0;return Math.max(0,elapsed()/60000*RATE*run.m
 function render(){
   const p=pending();
   $('bal').textContent=money(S.bal+(run?p:0));
-  $('st1').textContent=S.dayN+' sessions today';
-  $('st2').textContent=money(S.total)+' earned all-time';
+  $('st1').textContent=S.dayN;$('sday').textContent=S.dayN+(S.dayN===1?' session':' sessions')+' today';
+  $('st2').textContent=money(S.total);
   if(run){const kk=Math.floor(p/1000);if(kk>run.k){run.k=kk;SND.ping();toast(money(kk*1000).replace(/\.00$/,'')+' banked so far')}const left=run.dur-elapsed();$('time').textContent=clock(left);$('pend').textContent=run.pa?'Paused':'+'+money(p)+' this session'+(run.mult>1?' · ×'+run.mult.toFixed(1):'');$('arc').style.strokeDashoffset=565.5*(left/run.dur);if(left<=0)finish()}
   blkTick();liveUI();if(brk){const l=brk.end-Date.now();$('btime').textContent=clock(l);if(l<=0){brk=null;SND.over();notify('Break over','Time to lock in.');toast('Break over. Time to lock in.');view('focus');showShop()}}
 }
@@ -258,7 +271,7 @@ function showShop(){renderPark();
     b.innerHTML='<span class="e">'+it.e+'</span>'+it.n+'<span class="p">'+money(ip(it)).replace(/\.00$/,String())+'</span><span class="m">'+it.m+' min break'+'</span>';
     b.onclick=()=>editMode?startEdit(it):buy(it);box.appendChild(b)});
 }
-function buy(it){if(S.bal<ip(it))return;S.bal-=ip(it);log({k:'spend',name:it.n,amt:ip(it)});save();SND.spend();{brk={end:Date.now()+it.m*60000,name:it.e+' '+it.n};if(blk){cool=null;blk.nextAt=brk.end}toast('Enjoy it. Spent '+money(ip(it)).replace(/\.00$/,String()))}showShop();render()}
+function buy(it){if(S.bal<ip(it))return;S.bal-=ip(it);log({k:'spend',name:it.n,amt:ip(it),m:it.m});save();SND.spend();{brk={end:Date.now()+it.m*60000,name:it.e+' '+it.n};if(blk){cool=null;blk.nextAt=brk.end}toast('Enjoy it. Spent '+money(ip(it)).replace(/\.00$/,String()))}showShop();render()}
 
 function view(v){['focus','tasks','shop','hist'].forEach(k=>{$('v-'+k).classList.toggle('hide',k!==v);$('t-'+k).setAttribute('aria-selected',k===v)});if(v==='shop')showShop();if(v==='hist')hist();if(v==='tasks')renderTasks()}
 $('t-focus').onclick=()=>view('focus');$('t-shop').onclick=()=>view('shop');$('t-hist').onclick=()=>view('hist');$('t-tasks').onclick=()=>view('tasks');
@@ -294,8 +307,8 @@ function stat(k,v){return '<div class="item" style="cursor:default"><span class=
 const openD=new Set([dkey(Date.now())]);let showDays=14;
 function dlab(k){if(k===dkey(Date.now()))return'Today';const y=new Date();y.setDate(y.getDate()-1);if(k===dkey(y))return'Yesterday';const[a,b,c]=k.split('-');return new Date(a,b-1,c).toLocaleDateString([],{weekday:'short',day:'numeric',month:'short'})}
 function hist(){
-  const L=S.log||[],ic={focus:'🎯',spend:'🛍️',game:'🎮',quit:'💨',bonus:'🏆'},RE=['😵','😕','😐','🙂','🔥'];
-  const txt=e=>e.k==='focus'?esc(e.task||'Focus session')+' · '+e.mins+' min'+(e.mult>1?' · ×'+e.mult.toFixed(1):'')+' · +'+N0(e.amt)+(e.rate?' '+RE[e.rate-1]:'')+(e.note?'<br><span style="color:var(--mute)">'+esc(e.note)+'</span>':''):e.k==='spend'?esc(e.name)+' · −'+N0(e.amt):e.k==='bonus'?'Daily goal hit · '+e.streak+'-day streak · +'+N0(e.amt):e.k==='game'?'Coin Catch · '+e.hits+' caught · +'+N0(e.amt):'Gave up '+esc(e.task||'a session')+' · lost '+N0(e.amt);
+  const L=S.log||[],ic={focus:'🎯',spend:'🛍️',game:'🎮',quit:'💨',bonus:'🏆',expire:'⌛'},RE=['😵','😕','😐','🙂','🔥'];
+  const txt=e=>e.k==='focus'?esc(e.task||'Focus session')+' · '+e.mins+' min'+(e.mult>1?' · ×'+e.mult.toFixed(1):'')+' · +'+N0(e.amt)+(e.rate?' '+RE[e.rate-1]:'')+(e.note?'<br><span style="color:var(--mute)">'+esc(e.note)+'</span>':''):e.k==='spend'?esc(e.name)+' · −'+N0(e.amt):e.k==='bonus'?'Daily goal hit · '+e.streak+'-day streak · +'+N0(e.amt):e.k==='expire'?'Unspent money expired overnight · −'+N0(e.amt):e.k==='game'?'Coin Catch · '+e.hits+' caught · +'+N0(e.amt):'Gave up '+esc(e.task||'a session')+' · lost '+N0(e.amt);
   const row=e=>'<div style="display:flex;justify-content:space-between;gap:10px;padding:8px 0 8px 18px;font-size:14px"><span>'+(ic[e.k]||'')+' '+txt(e)+'</span><span style="color:var(--mute);white-space:nowrap">'+new Date(e.t).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})+'</span></div>';
   const days=[];for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);days.push(d)}
   const wk=days.map(dkey),W=L.filter(e=>wk.includes(dkey(e.t))),wf=W.filter(e=>e.k==='focus');
@@ -398,7 +411,7 @@ function applyCur(){lenOpts();cest();blenOpts();$('ratehint').textContent='You e
 $('cur').onclick=()=>{S.cur=CK[(CK.indexOf(S.cur||'NGN')+1)%3];save();applyCur()};
 let blk=null,cool=null,lastHB=0;
 function endBlock(){blk=null;cool=null;toast('Work block complete 🎉 Great work.');SND.done();notify('Work block complete 🎉','You made it to the end.');ui();render()}
-function blkTick(){if(Date.now()-lastHB>2000){lastHB=Date.now();saveLive()}if(blk&&!run&&!brk&&blk.nextAt&&Date.now()>=blk.nextAt){blk.nextAt=0;cool=null;if(blk.to-Date.now()<6e4)endBlock();else{begin();view('focus')}}}
+function blkTick(){rollDay();if(Date.now()-lastHB>2000){lastHB=Date.now();saveLive()}if(blk&&!run&&!brk&&blk.nextAt&&Date.now()>=blk.nextAt){blk.nextAt=0;cool=null;if(blk.to-Date.now()<6e4)endBlock();else{begin();view('focus')}}}
 $('skipc').onclick=()=>{if(cool&&blk){cool=null;blk.nextAt=Date.now()}};
 $('endb').onclick=()=>{if(confirm('End the work block? A session in progress will finish normally.')){blk=null;cool=null;toast('Work block ended.');render()}};
 $('mode').onchange=()=>{const b=$('mode').value==='b';['blkrow','blenrow','blkhint'].forEach(i=>$(i).classList.toggle('hide',!b));$('cbrow').classList.toggle('hide',!(b&&$('blen').value==='c'));$('len').parentElement.classList.toggle('hide',b);if(b){['crow','cest'].forEach(i=>$(i)&&$(i).classList.add('hide'))}else if(typeof cest==='function')cest();$('start').textContent=b?'Start work block':'Start earning'};
@@ -416,11 +429,13 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden)saveLive()}
 function blenOpts(sel){const v=sel||$('blen').value||'50';$('blen').innerHTML=[25,50,90].map(m=>'<option value="'+m+'"'+(String(m)===v?' selected':'')+'>Focus in '+m+'-minute stretches</option>').join('')+'<option value="c"'+(v==='c'?' selected':'')+'>Custom stretch length…</option>'}
 const bm=()=>$('blen').value==='c'?Math.min(240,Math.max(0,Math.round(+$('cbl').value||0))):+$('blen').value;
 $('blen').onchange=()=>{$('cbrow').classList.toggle('hide',$('blen').value!=='c')};
+const CARRY=.25;
+function rollDay(){if(S.day===day()||blk)return;const lost=Math.round(S.bal*(1-CARRY));S.day=day();S.dayN=0;if(lost>0){S.bal-=lost;log({k:'expire',amt:lost});toast('New day. '+money(lost).replace(/\.00$/,'')+' of unspent money expired.')}save()}
 const rootEl=document.documentElement;
 const curTheme=()=>rootEl.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
 const themeBtn=()=>$('theme').textContent=curTheme()==='dark'?'☀️':'🌙';
 $('theme').onclick=()=>{const t=curTheme()==='dark'?'light':'dark';rootEl.dataset.theme=t;try{localStorage.setItem('lockin-theme',t)}catch(e){}themeBtn()};themeBtn();
-restoreLive();applyCur();ui();view('focus');render();setInterval(render,200);
+restoreLive();rollDay();applyCur();ui();view('focus');render();setInterval(render,200);
 </script>
 </body>
 </html>
