@@ -194,8 +194,7 @@ nav button{flex:none;text-align:left;padding:13px 20px;font-size:15px}
 <section id="v-hist" class="card hide">
     <div id="acct" style="margin-bottom:16px"></div>
     
-    <div class="shop" style="margin:0 0 12px"><div class="item" style="cursor:default"><span class="m">sessions today</span><span class="p" id="st1">0</span></div><div class="item" style="cursor:default"><span class="m">all-time earned</span><span class="p" id="st2">0</span></div></div>
-    <div id="hsum" class="shop" style="margin:0 0 12px"></div>
+    <div id="hsum" class="shop" style="margin:0 0 12px;grid-template-columns:repeat(auto-fit,minmax(110px,1fr))"></div>
     <div id="hlist"></div>
     <b class="big" style="font-size:18px;display:block;margin-top:16px">Focus minutes, last 7 days</b>
     <div id="hbars" style="display:flex;gap:6px;align-items:end;margin:12px 0 18px"></div>
@@ -248,8 +247,8 @@ function pending(){if(!run)return 0;return Math.max(0,elapsed()/60000*RATE*run.m
 function render(){
   const p=pending();
   $('bal').textContent=money(S.bal+(run?p:0));
-  $('st1').textContent=S.dayN;$('sday').textContent=S.dayN+(S.dayN===1?' session':' sessions')+' today';
-  $('st2').textContent=money(S.total);
+  $('sday').textContent=S.dayN+(S.dayN===1?' session':' sessions')+' today';
+  
   if(run){const kk=Math.floor(p/1000);if(kk>run.k){run.k=kk;SND.ping();toast(money(kk*1000).replace(/\.00$/,'')+' banked so far')}const left=run.dur-elapsed();$('time').textContent=clock(left);$('pend').textContent=run.pa?'Paused':'+'+money(p)+' this session'+(run.mult>1?' · ×'+run.mult.toFixed(1):'');$('arc').style.strokeDashoffset=565.5*(left/run.dur);if(left<=0)finish()}
   blkTick();liveUI();if(brk){const l=brk.end-Date.now();$('btime').textContent=clock(l);if(l<=0){brk=null;SND.over();notify('Break over','Time to lock in.');toast('Break over. Time to lock in.');view('focus');showShop()}}
 }
@@ -312,7 +311,7 @@ function hist(){
   const row=e=>'<div style="display:flex;justify-content:space-between;gap:10px;padding:8px 0 8px 18px;font-size:14px"><span>'+(ic[e.k]||'')+' '+txt(e)+'</span><span style="color:var(--mute);white-space:nowrap">'+new Date(e.t).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})+'</span></div>';
   const days=[];for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);days.push(d)}
   const wk=days.map(dkey),W=L.filter(e=>wk.includes(dkey(e.t))),wf=W.filter(e=>e.k==='focus');
-  $('hsum').innerHTML=stat('Focus, last 7 days',wf.reduce((a,e)=>a+e.mins,0)+' min')+stat('Sessions',wf.length)+stat('Earned',N0(wf.reduce((a,e)=>a+e.amt,0)))+stat('Spent',N0(W.filter(e=>e.k==='spend').reduce((a,e)=>a+e.amt,0)));
+  $('hsum').innerHTML=stat('All-time earned',N0(S.total))+stat('Focus, last 7 days',wf.reduce((a,e)=>a+e.mins,0)+' min')+stat('Total spent',N0(L.filter(e=>e.k==='spend').reduce((a,e)=>a+e.amt,0)));
   const by={};L.forEach(e=>{(by[dkey(e.t)]=by[dkey(e.t)]||[]).push(e)});
   const keys=Object.keys(by).sort().reverse();
   $('hlist').innerHTML=keys.length?keys.slice(0,showDays).map(k=>{const d=by[k],f=d.filter(e=>e.k==='focus'),mins=f.reduce((a,e)=>a+e.mins,0),earn=f.reduce((a,e)=>a+e.amt,0),sp=d.filter(e=>e.k==='spend').reduce((a,e)=>a+e.amt,0);
