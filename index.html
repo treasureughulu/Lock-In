@@ -5,6 +5,7 @@
 <script>try{var t=localStorage.getItem("lockin-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22 role=%22img%22 aria-label=%22Lock In logo%22%3E%3Crect x=%226%22 y=%226%22 width=%22116%22 height=%22116%22 rx=%2232%22 fill=%22%23BFE2EF%22 stroke=%22%23171717%22 stroke-width=%225%22/%3E%3Cpath d=%22M44 64V48a20 20 0 0 1 40 0V64%22 fill=%22none%22 stroke=%22%23171717%22 stroke-width=%2217%22 stroke-linecap=%22round%22/%3E%3Cpath d=%22M44 64V48a20 20 0 0 1 40 0V64%22 fill=%22none%22 stroke=%22%23FFFDF8%22 stroke-width=%228%22 stroke-linecap=%22round%22/%3E%3Crect x=%2232%22 y=%2260%22 width=%2264%22 height=%2250%22 rx=%2216%22 fill=%22%23FFE27A%22 stroke=%22%23171717%22 stroke-width=%225%22/%3E%3Cpath d=%22M54 95V77L74 95V77%22 fill=%22none%22 stroke=%22%23171717%22 stroke-width=%225%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22/%3E%3Cpath d=%22M49 84H79M49 89H79%22 stroke=%22%23171717%22 stroke-width=%223.5%22 stroke-linecap=%22round%22/%3E%3Cpath d=%22M104 8l4.5 10 11 1-8.300 7.500 2.600 10.800-9.800-5.800-9.800 5.800 2.600-10.800-8.300-7.500 11-1z%22 fill=%22%23F6C945%22 stroke=%22%23171717%22 stroke-width=%223%22 stroke-linejoin=%22round%22 transform=%22translate%28-4 4%29 scale%28.9%29%22/%3E%3C/svg%3E">
+<link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-192.png"><meta name="theme-color" content="#C9E8EE">
 <title>Lock In — earn while you focus</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=DM+Serif+Display&family=DM+Sans:wght@400;600;700;800&family=Space+Mono&display=swap" rel="stylesheet">
@@ -91,7 +92,7 @@ input,select{border-radius:999px;border:1.5px solid var(--ink);background:var(--
 .go{background:var(--pink);color:#171717;border:1.5px solid #171717;border-radius:999px;font:800 16px 'DM Sans',system-ui,sans-serif;box-shadow:3px 3px 0 #171717}
 .go:active{transform:translate(2px,2px);box-shadow:1px 1px 0 #171717}
 .go.quit{background:transparent;border:1.5px solid var(--red);color:var(--red);box-shadow:none}
-.mini{border:1px solid var(--ink)}
+.mini{border:1px solid var(--ink)}.mini:disabled{opacity:.35;cursor:default}
 .item{border:0;border-radius:18px;color:#171717;text-transform:lowercase}
 .item:nth-child(4n+1){background:var(--yellow)}.item:nth-child(4n+2){background:var(--pink)}.item:nth-child(4n+3){background:var(--blue)}.item:nth-child(4n){background:var(--mint)}
 .item .p,.item .m{color:#171717!important}
@@ -168,8 +169,8 @@ nav button{flex:none;text-align:left;padding:13px 20px;font-size:15px}
   </section>
 
   <section id="v-tasks" class="card hide">
-    <b class="big" style="font-size:20px">Task list</b>
-    <div class="row" style="margin-top:10px"><input id="tin" placeholder="Add a task" maxlength="80"><button class="go" id="tadd" style="width:auto;padding:0 18px;font-size:15px">Add</button></div>
+    <b class="big" style="font-size:20px">Today's tasks</b><p class="hint" style="text-align:left;margin:2px 0 0">Finished tasks from earlier days are stored in History.</p>
+    <div class="row" style="margin-top:10px"><input id="tin" placeholder="Add a task" maxlength="80"><select id="ttag" aria-label="Tag" style="max-width:112px"><option value="">No tag</option><option>Work</option><option>Study</option><option>Business</option><option>Personal</option></select><button class="go" id="tadd" style="width:auto;padding:0 18px;font-size:15px">Add</button></div>
     <div id="tlist"></div>
     <div id="pdone"></div>
   </section>
@@ -184,6 +185,7 @@ nav button{flex:none;text-align:left;padding:13px 20px;font-size:15px}
     <div id="store">
       <div class="row" style="justify-content:space-between;align-items:center;margin:0"><b class="big" style="font-size:20px">Spend your break money</b><button class="mini" id="edit">Edit shop</button></div>
       <div class="shop" id="items"></div>
+      <div id="jar" style="margin-top:18px"></div>
       <details style="margin-top:14px"><summary id="dsum" style="cursor:pointer;font-weight:600">Add your own reward</summary>
         <div class="row" style="margin-top:10px"><input id="ce" placeholder="Emoji" maxlength="4" aria-label="Emoji" style="max-width:84px"><input id="cn" placeholder="e.g. Watch one reel" maxlength="30" aria-label="Reward name"></div>
         <div class="row"><input id="cp" type="number" min="0" step="any" placeholder="Price" aria-label="Price"><input id="cm" type="number" min="1" max="30" placeholder="Minutes" aria-label="Minutes"></div>
@@ -194,10 +196,15 @@ nav button{flex:none;text-align:left;padding:13px 20px;font-size:15px}
 <section id="v-hist" class="card hide">
     <div id="acct" style="margin-bottom:16px"></div>
     
+    <div id="rank" style="margin-bottom:16px"></div>
     <div id="hsum" class="shop" style="margin:0 0 12px;grid-template-columns:repeat(auto-fit,minmax(110px,1fr))"></div>
-    <div id="hlist"></div>
-    <b class="big" style="font-size:18px;display:block;margin-top:16px">Focus minutes, last 7 days</b>
-    <div id="hbars" style="display:flex;gap:6px;align-items:end;margin:12px 0 18px"></div>
+    <div id="ins"></div><button class="mini" id="recap" style="margin:0 0 12px">📸 Share week recap</button>
+    <div id="hlist" style="margin-bottom:18px"></div>
+    <details style="margin:0 0 16px"><summary style="cursor:pointer;font-weight:600">Settings</summary>
+      <p class="hint" style="text-align:left;margin:10px 0 6px">Rest days (your streak skips these)</p><div id="restd" style="display:flex;gap:6px;flex-wrap:wrap"></div>
+      <p class="hint" style="text-align:left;margin:12px 0 6px">Daily reminder (works while the app is open)</p><div class="row" style="margin:0"><input type="time" id="remt" value="09:00" aria-label="Reminder time"><button class="mini" id="remb">Off</button></div>
+      <div class="row" style="margin:12px 0 0;flex-wrap:wrap"><button class="mini" id="inst">Install app</button><button class="mini" id="tourb">Replay walkthrough</button></div>
+      <p class="hint" style="text-align:left;margin:10px 0 0">Shortcuts: Space start or pause · F T S H switch tabs · P park a thought · ? help</p></details>
     <div class="row"><button class="go" id="exp" style="font-size:14px;padding:11px">Export backup</button><button class="go" id="imp" style="font-size:14px;padding:11px;background:var(--card);color:var(--ink);border:1px solid var(--line)">Import backup</button></div>
     <input type="file" id="impf" accept="application/json" class="hide">
   </section>
@@ -212,13 +219,15 @@ nav button{flex:none;text-align:left;padding:13px 20px;font-size:15px}
 <label id="cidw" class="hide" style="display:flex;gap:8px;align-items:center;margin-bottom:12px;font-size:14px"><input type="checkbox" id="cid" style="width:20px;height:20px;padding:0"><span id="cidl"></span></label>
 <div class="row" style="margin:0"><button class="go" id="cisave" style="font-size:15px;padding:12px">Save check-in</button><button class="go" id="ciskip" style="font-size:15px;padding:12px;background:var(--card);color:var(--ink);border:1px solid var(--line)">Skip</button></div>
 </div></div>
+<div id="tour" class="hide" role="dialog" aria-modal="true" aria-label="How Lock In works" style="position:fixed;inset:0;z-index:25;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(5,15,40,.6)"><div class="card" id="tourc" style="max-width:420px;width:100%;text-align:center;background:var(--bg)"></div></div>
+<div id="rs" class="hide" role="dialog" aria-modal="true" aria-label="Set a new password" style="position:fixed;inset:0;z-index:30;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(5,15,40,.6)"><div class="card" style="max-width:420px;width:100%;background:var(--bg)"><div class="ser" style="font-size:34px">new password</div><div class="row" style="margin-top:14px"><input id="rpw" type="password" placeholder="New password (6+ characters)" autocomplete="new-password"></div><button class="go" id="rgo" style="width:100%;font-size:15px;padding:13px">Save password</button></div></div>
 <div id="toast" class="hide" role="status"></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.min.js"></script>
 <script>
 /* Paste your Supabase Project URL and anon (public) key here. Never use the service_role key. */
 const SB_URL='https://rorpfaxxgomteiyceiem.supabase.co', SB_KEY='sb_publishable_Nxtwe-SPTf4qcTOXb-PAew_ZVs1C_4g';
 const RATE=200, FINE=150, GOAL=10000, COMBO_MS=600000, PAUSE_MS=20000, MAXP=5;
-const BASE=[{e:'💧',n:'Water break',m:5,pc:{NGN:1000,GBP:1.5,USD:2}},{e:'📱',n:'Phone scroll',m:5,pc:{NGN:1500,GBP:2,USD:2.5}},{e:'🍫',n:'Snack',m:3,pc:{NGN:800,GBP:2,USD:2.5}},{e:'🧘',n:'Stretch break',m:3,pc:{NGN:500,GBP:1,USD:1}},{e:'🚶',n:'Walk outside',m:10,pc:{NGN:2500,GBP:5,USD:6}},{e:'😴',n:'Power nap',m:15,pc:{NGN:4000,GBP:8,USD:10}}];
+const BASE=[{e:'💧',n:'Water break',m:5,pc:{NGN:1000,GBP:1.5,USD:2}},{e:'📱',n:'Phone scroll',m:5,pc:{NGN:1500,GBP:2,USD:2.5}},{e:'🍫',n:'Snack',m:3,pc:{NGN:800,GBP:2,USD:2.5}},{e:'🧘',n:'Stretch break',m:3,pc:{NGN:500,GBP:1,USD:1}},{e:'🚶',n:'Walk outside',m:10,pc:{NGN:2500,GBP:5,USD:6}},{e:'😴',n:'Power nap',m:15,pc:{NGN:4000,GBP:8,USD:10}},{e:'🧊',n:'Streak freeze',m:0,fz:1,pc:{NGN:5000,GBP:10,USD:12}}];
 const $=id=>document.getElementById(id);
 const day=()=>new Date().toDateString();
 let S={bal:0,total:0,sessions:0,dayN:0,day:day(),custom:[],log:[]};
@@ -255,22 +264,22 @@ function render(){
 function finish(){const p=pending();S.bal+=p;S.total+=p;S.sessions++;S.dayN++;
   log({k:'focus',task:run.task,mins:Math.round(run.dur/60000),amt:p,mult:run.mult});
   const en=S.log[S.log.length-1],tk=run.taskId?(S.tasks||[]).find(x=>x.id===run.taskId):null;
-  if(tk)tk.mins=(tk.mins||0)+en.mins;
+  if(tk){tk.mins=(tk.mins||0)+en.mins;if(tk.tag)en.tag=tk.tag}S.fm=(S.fm||0)+en.mins;
   S.lastEnd=Date.now();S.combo=run.combo;
   let bonus=0;const dk=dkey(Date.now());S.hits=S.hits||{};
   if(!S.hits[dk]&&focusToday()>=(S.goal||GOAL)){S.hits[dk]=true;const st=streak();bonus=1000*Math.min(st,5);S.bal+=bonus;S.total+=bonus;log({k:'bonus',amt:bonus,streak:st})}
-  save();const msg='Session complete! +'+money(p)+(bonus?' · Daily goal hit! +'+money(bonus)+' 🔥':'');toast(msg);SND.done();notify('Session complete 🎉',msg);rain();run=null;if(blk){if(blk.to-Date.now()<6e4)endBlock();else{cool={end:Date.now()+12e4};blk.nextAt=cool.end}}ui();view('shop');openCI(en,tk)}
+  S.best=Math.max(S.best||0,streak());const nb=newBadges();save();const msg='Session complete! +'+money(p)+(bonus?' · Daily goal hit! +'+money(bonus)+' 🔥':'')+(nb.length?' · 🏅 '+nb.join(', '):'');toast(msg);SND.done();notify('Session complete 🎉',msg);rain();run=null;if(blk){if(blk.to-Date.now()<6e4)endBlock();else{cool={end:Date.now()+12e4};blk.nextAt=cool.end}}ui();view('shop');openCI(en,tk)}
 function hello(){$('hello').textContent=S.name?'Hello, '+S.name+' 👋':''}
 function ui(){hello();refreshTb();saveLive();$('setup').classList.toggle('hide',!!run||gated());$('gate').classList.toggle('hide',!gated()||!!run);$('live').classList.toggle('hide',!run);$('ctask').textContent=run?(run.task||'Locked in'):'';if(!run){$('time').textContent=clock(mins()*60000);$('pend').textContent='+'+money(0)+' this session';$('arc').style.strokeDashoffset=565.5}showShop()}
-function showShop(){renderPark();
+function showShop(){renderPark();renderJar();
   $('brk').classList.toggle('hide',!brk);$('store').classList.toggle('hide',!!brk);
   if(brk)$('bname').textContent=brk.name;
   const box=$('items');box.innerHTML='';
   shopItems().forEach(it=>{const b=document.createElement('button');b.className='item';b.disabled=!editMode&&(S.bal<ip(it)||!!run);b.style.outline=editMode?'2px dashed #171717':'';
-    b.innerHTML='<span class="e">'+it.e+'</span>'+it.n+'<span class="p">'+money(ip(it)).replace(/\.00$/,String())+'</span><span class="m">'+it.m+' min break'+'</span>';
+    b.innerHTML='<span class="e">'+it.e+'</span>'+it.n+'<span class="p">'+money(ip(it)).replace(/\.00$/,String())+'</span><span class="m">'+(it.fz?'protects 1 missed day':it.m+' min break')+'</span>';
     b.onclick=()=>editMode?startEdit(it):buy(it);box.appendChild(b)});
 }
-function buy(it){if(S.bal<ip(it))return;S.bal-=ip(it);log({k:'spend',name:it.n,amt:ip(it),m:it.m});save();SND.spend();{brk={end:Date.now()+it.m*60000,name:it.e+' '+it.n};if(blk){cool=null;blk.nextAt=brk.end}toast('Enjoy it. Spent '+money(ip(it)).replace(/\.00$/,String()))}showShop();render()}
+function buy(it){if(S.bal<ip(it))return;if(it.fz){if((S.freeze||0)>=2){toast('You already hold 2 freezes.');return}S.bal-=ip(it);S.freeze=(S.freeze||0)+1;log({k:'spend',name:it.n,amt:ip(it),m:0});save();SND.spend();toast('Streak freeze ready 🧊');showShop();render();return}S.bal-=ip(it);log({k:'spend',name:it.n,amt:ip(it),m:it.m});save();SND.spend();{brk={end:Date.now()+it.m*60000,name:it.e+' '+it.n};if(blk){cool=null;blk.nextAt=brk.end}toast('Enjoy it. Spent '+money(ip(it)).replace(/\.00$/,String()))}showShop();render()}
 
 function view(v){['focus','tasks','shop','hist'].forEach(k=>{$('v-'+k).classList.toggle('hide',k!==v);$('t-'+k).setAttribute('aria-selected',k===v)});if(v==='shop')showShop();if(v==='hist')hist();if(v==='tasks')renderTasks()}
 $('t-focus').onclick=()=>view('focus');$('t-shop').onclick=()=>view('shop');$('t-hist').onclick=()=>view('hist');$('t-tasks').onclick=()=>view('tasks');
@@ -305,21 +314,30 @@ const N0=n=>{const c=cc(),d=c.fx===1?0:2;return c.s+(n*c.fx).toLocaleString(c.lo
 function stat(k,v){return '<div class="item" style="cursor:default"><span class="m">'+k+'</span><span class="p" style="color:var(--ink)">'+v+'</span></div>'}
 const openD=new Set([dkey(Date.now())]);let showDays=14;
 function dlab(k){if(k===dkey(Date.now()))return'Today';const y=new Date();y.setDate(y.getDate()-1);if(k===dkey(y))return'Yesterday';const[a,b,c]=k.split('-');return new Date(a,b-1,c).toLocaleDateString([],{weekday:'short',day:'numeric',month:'short'})}
+let wk=0;
 function hist(){
-  const L=S.log||[],ic={focus:'🎯',spend:'🛍️',game:'🎮',quit:'💨',bonus:'🏆',expire:'⌛'},RE=['😵','😕','😐','🙂','🔥'];
-  const txt=e=>e.k==='focus'?esc(e.task||'Focus session')+' · '+e.mins+' min'+(e.mult>1?' · ×'+e.mult.toFixed(1):'')+' · +'+N0(e.amt)+(e.rate?' '+RE[e.rate-1]:'')+(e.note?'<br><span style="color:var(--mute)">'+esc(e.note)+'</span>':''):e.k==='spend'?esc(e.name)+' · −'+N0(e.amt):e.k==='bonus'?'Daily goal hit · '+e.streak+'-day streak · +'+N0(e.amt):e.k==='expire'?'Unspent money expired overnight · −'+N0(e.amt):e.k==='game'?'Coin Catch · '+e.hits+' caught · +'+N0(e.amt):'Gave up '+esc(e.task||'a session')+' · lost '+N0(e.amt);
+  const L=S.log||[],ic={focus:'🎯',spend:'🛍️',game:'🎮',quit:'💨',bonus:'🏆',expire:'⌛',treat:'🎁'},RE=['😵','😕','😐','🙂','🔥'];
+  const txt=e=>e.k==='focus'?esc(e.task||'Focus session')+' · '+e.mins+' min'+(e.mult>1?' · ×'+e.mult.toFixed(1):'')+' · +'+N0(e.amt)+(e.rate?' '+RE[e.rate-1]:'')+(e.note?'<br><span style="color:var(--mute)">'+esc(e.note)+'</span>':''):e.k==='spend'?esc(e.name)+' · −'+N0(e.amt):e.k==='bonus'?'Daily goal hit · '+e.streak+'-day streak · +'+N0(e.amt):e.k==='treat'?'Claimed treat: '+esc(e.name)+' · '+N0(e.amt):e.k==='expire'?'Unspent money expired overnight · −'+N0(e.amt):e.k==='game'?'Coin Catch · '+e.hits+' caught · +'+N0(e.amt):'Gave up '+esc(e.task||'a session')+' · lost '+N0(e.amt);
+  const trow=t=>'<div style="padding:6px 0 6px 18px;font-size:14px">'+(t.done?'✅':'⬜')+' '+esc(t.text)+(t.mins?' <span style="color:var(--mute)">· '+t.mins+' min</span>':'')+'</div>';
   const row=e=>'<div style="display:flex;justify-content:space-between;gap:10px;padding:8px 0 8px 18px;font-size:14px"><span>'+(ic[e.k]||'')+' '+txt(e)+'</span><span style="color:var(--mute);white-space:nowrap">'+new Date(e.t).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})+'</span></div>';
-  const days=[];for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);days.push(d)}
-  const wk=days.map(dkey),W=L.filter(e=>wk.includes(dkey(e.t))),wf=W.filter(e=>e.k==='focus');
-  $('hsum').innerHTML=stat('All-time earned',N0(S.total))+stat('Focus, last 7 days',wf.reduce((a,e)=>a+e.mins,0)+' min')+stat('Total spent',N0(L.filter(e=>e.k==='spend').reduce((a,e)=>a+e.amt,0)));
-  const by={};L.forEach(e=>{(by[dkey(e.t)]=by[dkey(e.t)]||[]).push(e)});
-  const keys=Object.keys(by).sort().reverse();
-  $('hlist').innerHTML=keys.length?keys.slice(0,showDays).map(k=>{const d=by[k],f=d.filter(e=>e.k==='focus'),mins=f.reduce((a,e)=>a+e.mins,0),earn=f.reduce((a,e)=>a+e.amt,0),sp=d.filter(e=>e.k==='spend').reduce((a,e)=>a+e.amt,0);
-    return '<details class="day" data-d="'+k+'"'+(openD.has(k)?' open':'')+' style="border-bottom:1px solid var(--line)"><summary style="display:flex;justify-content:space-between;gap:10px;padding:12px 0;font-weight:600"><span><span class="chev">\u25b8</span>'+dlab(k)+'</span><span style="color:var(--mute);font-weight:400;font-size:13px;text-align:right">'+f.length+' session'+(f.length===1?'':'s')+' \u00b7 '+mins+' min \u00b7 +'+N0(earn)+(sp?' \u00b7 \u2212'+N0(sp):'')+'</span></summary>'+d.slice().reverse().map(row).join('')+'</details>'}).join('')+(keys.length>showDays?'<button class="go" id="more" style="font-size:14px;padding:11px;margin-top:12px;background:var(--card);color:var(--ink);border:1px solid var(--line)">Show older days</button>':''):'<p class="hint">Nothing logged yet. Finish a session and it shows up here.</p>';
+  renderRank();renderIns(L);renderSet();$('hsum').innerHTML=stat('All-time earned',N0(S.total))+stat('Total spent',N0(L.filter(e=>e.k==='spend').reduce((a,e)=>a+e.amt,0)));
+  const now=new Date(),mon=new Date(now.getFullYear(),now.getMonth(),now.getDate()-((now.getDay()+6)%7)-wk*7),days=[];
+  for(let i=0;i<7;i++)days.push(new Date(mon.getFullYear(),mon.getMonth(),mon.getDate()+i));
+  const tdk=dkey(Date.now()),shown=days.filter(d=>dkey(d)<=tdk),keys=shown.map(dkey),by={},tk={};
+  L.forEach(e=>{(by[dkey(e.t)]=by[dkey(e.t)]||[]).push(e)});(S.tasks||[]).forEach(t=>{(tk[dkey(t.id)]=tk[dkey(t.id)]||[]).push(t)});
+  const st=keys.map(k=>{const d=by[k]||[],f=d.filter(e=>e.k==='focus');return{d,n:f.length,mins:f.reduce((a,e)=>a+e.mins,0),earn:d.filter(e=>e.k==='focus'||e.k==='bonus').reduce((a,e)=>a+e.amt,0),sp:d.filter(e=>e.k==='spend').reduce((a,e)=>a+e.amt,0)}});
+  const mx=Math.max(30,...st.map(s=>s.mins)),tot=st.reduce((a,s)=>({m:a.m+s.mins,n:a.n+s.n,e:a.e+s.earn,s:a.s+s.sp}),{m:0,n:0,e:0,s:0});
+  const fd=d=>d.toLocaleDateString([],{day:'numeric',month:'short'}),lab=wk===0?'This week':wk===1?'Last week':fd(days[0])+' – '+fd(days[6]);
+  const older=Object.keys(by).concat(Object.keys(tk)).some(k=>k<keys[0]);
+  let out='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><button class="mini" id="wkp"'+(older?'':' disabled')+' aria-label="Previous week" style="font-size:16px;padding:6px 14px">‹</button><b>'+lab+'</b><button class="mini" id="wkn"'+(wk?'':' disabled')+' aria-label="Next week" style="font-size:16px;padding:6px 14px">›</button></div>';
+  out+='<p class="hint" style="margin:0 0 6px">'+Math.floor(tot.m/60)+'h '+tot.m%60+'m focused · '+tot.n+' session'+(tot.n===1?'':'s')+' · +'+N0(tot.e)+' · −'+N0(tot.s)+'</p>';
+  out+=shown.map((d,i)=>{const k=keys[i],s=st[i],tl=tk[k]||[];
+    const head='<span style="width:70px;flex:none">'+(k===tdk?'Today':d.toLocaleDateString([],{weekday:'short',day:'numeric'}))+'</span><span style="flex:1;height:8px;border-radius:99px;background:var(--line);overflow:hidden"><i style="display:block;height:100%;width:'+(s.mins/mx*100)+'%;background:var(--gold)"></i></span><span style="width:118px;flex:none;text-align:right;color:var(--mute);font-weight:400;font-size:13px;white-space:nowrap">'+(s.mins?s.mins+' min':'–')+(s.earn?' · +'+N0(s.earn):'')+'</span>';
+    if(!s.d.length&&!tl.length)return'<div style="display:flex;align-items:center;gap:10px;padding:12px 0 12px 24px;border-bottom:1px solid var(--line);font-weight:600;opacity:.55">'+head+'</div>';
+    return'<details class="day" data-d="'+k+'"'+(openD.has(k)?' open':'')+' style="border-bottom:1px solid var(--line)"><summary style="display:flex;align-items:center;gap:10px;padding:12px 0;font-weight:600"><span class="chev">▸</span>'+head+'</summary>'+(tl.length?'<div style="padding:6px 0 2px 18px;font-size:13px;color:var(--mute)">'+tl.filter(t=>t.done).length+'/'+tl.length+' tasks</div>'+tl.map(trow).join(''):'')+s.d.slice().reverse().map(row).join('')+'</details>'}).reverse().join('');
+  $('hlist').innerHTML=out;
   $('hlist').querySelectorAll('details.day').forEach(el=>el.addEventListener('toggle',()=>{el.open?openD.add(el.dataset.d):openD.delete(el.dataset.d)}));
-  const mb=$('more');if(mb)mb.onclick=()=>{showDays+=14;hist()};
-  const vals=days.map(d=>L.filter(e=>e.k==='focus'&&dkey(e.t)===dkey(d)).reduce((a,e)=>a+e.mins,0)),mx=Math.max(30,...vals);
-  $('hbars').innerHTML=days.map((d,i)=>'<div style="flex:1;text-align:center;font-size:11px;color:var(--mute)"><div style="height:'+Math.max(3,vals[i]/mx*70)+'px;background:var(--gold);border-radius:6px 6px 2px 2px;margin-bottom:4px"></div>'+d.toLocaleDateString([],{weekday:'narrow'})+'<br>'+vals[i]+'m</div>').join('');
+  $('wkp').onclick=()=>{wk++;hist()};$('wkn').onclick=()=>{if(wk>0){wk--;hist()}};
 }
 $('exp').onclick=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(S)],{type:'application/json'}));a.download='lockin-backup-'+dkey(Date.now())+'.json';a.click()};
 $('imp').onclick=()=>$('impf').click();
@@ -349,31 +367,32 @@ async function auth(m,x){const email=$(x+'em').value.trim(),password=$(x+'pw').v
   if(r.error){toast(r.error.message);return}
   try{localStorage.setItem('lockin-acct','1')}catch(e){}
   if(m==='up'&&!r.data.session){amode='in';applyMode();toast('Check your email to confirm, then sign in.')}}
-function applyMode(){const up=amode==='up';['h','g'].forEach(x=>{const b=$(x+'go');if(!b)return;$(x+'upn').classList.toggle('hide',!up);$(x+'upc').classList.toggle('hide',!up);b.textContent=up?'Create account':'Sign in';$(x+'sw').textContent=up?'Already have an account? Sign in':'New here? Create an account'});
+function applyMode(){const up=amode==='up';['h','g'].forEach(x=>{const b=$(x+'go');if(!b)return;$(x+'upn').classList.toggle('hide',!up);$(x+'upc').classList.toggle('hide',!up);$(x+'fpr').classList.toggle('hide',up);b.textContent=up?'Create account':'Sign in';$(x+'sw').textContent=up?'Already have an account? Sign in':'New here? Create an account'});
   if($('gttl'))$('gttl').textContent=up?'join the club':'welcome back';if($('httl'))$('httl').textContent=up?'Create an account to save your history':'Sign in to your account'}
 async function saveName(){const n=$('nm2').value.trim().slice(0,24);if(!n){toast('Enter a name first.');return}S.name=n;save();hello();try{await sb.auth.updateUser({data:{name:n}})}catch(e){}toast('Name saved')}
 async function signOut(){clearTimeout(syncT);await push();user=null;skip=false;try{sessionStorage.removeItem('lockin-skip')}catch(e){}await sb.auth.signOut();S=fresh();run=blk=cool=brk=null;save();accUI();applyCur();hist();toast('Signed out')}
 function accUI(){const a=$('acct');
   if(!CLOUD){a.innerHTML='<p class="hint" style="text-align:left;margin:0">Cloud sync is off. History is saved on this device only.</p>';return}
   if(user){a.innerHTML='<div class="row" style="align-items:center;justify-content:space-between;margin:0"><span style="font-size:14px">Signed in as <b>'+esc(user.email)+'</b><br><span id="sync" style="color:var(--mute);font-size:12px">Your history is saved to your account</span></span><button class="snd" id="so" style="color:var(--ink);border-color:var(--line)">Sign out</button></div><div class="row" style="margin:10px 0 0"><input id="nm2" placeholder="Preferred name" maxlength="24" value="'+esc(S.name||'')+'"><button class="go" id="nmb" style="width:auto;padding:0 16px;font-size:14px">Save name</button></div><div class="row" style="margin:10px 0 0"><button class="mini" id="retry">Sync now</button></div>';$('retry').onclick=async()=>{setSync('Syncing…');await push()};$('so').onclick=signOut;$('nmb').onclick=saveName}
-  else{const f=x=>'<div class="row" id="'+x+'upn" style="margin-top:10px"><input id="'+x+'nm" placeholder="Preferred name" maxlength="24" autocomplete="nickname"></div><div class="row" id="'+x+'upc"><select id="'+x+'cu" aria-label="Currency"><option value="NGN">₦ Naira</option><option value="GBP">£ Pounds</option><option value="USD">$ Dollars</option></select></div><div class="row"><input id="'+x+'em" type="email" placeholder="Email" autocomplete="email"></div><div class="row"><input id="'+x+'pw" type="password" placeholder="Password (6+ characters)" autocomplete="current-password"></div><button class="go" id="'+x+'go" style="width:100%;font-size:15px;padding:13px"></button><p class="hint"><button class="mini" id="'+x+'sw" style="background:transparent;border:0;text-decoration:underline;font-size:13px"></button></p>';
+  else{const f=x=>'<div class="row" id="'+x+'upn" style="margin-top:10px"><input id="'+x+'nm" placeholder="Preferred name" maxlength="24" autocomplete="nickname"></div><div class="row" id="'+x+'upc"><select id="'+x+'cu" aria-label="Currency"><option value="NGN">₦ Naira</option><option value="GBP">£ Pounds</option><option value="USD">$ Dollars</option></select></div><div class="row"><input id="'+x+'em" type="email" placeholder="Email" autocomplete="email"></div><div class="row"><input id="'+x+'pw" type="password" placeholder="Password (6+ characters)" autocomplete="current-password"></div><p class="hint" id="'+x+'fpr" style="text-align:right;margin:-4px 0 8px"><button class="mini" id="'+x+'fp" style="background:transparent;border:0;text-decoration:underline;font-size:13px">Forgot password?</button></p><button class="go" id="'+x+'go" style="width:100%;font-size:15px;padding:13px"></button><p class="hint"><button class="mini" id="'+x+'sw" style="background:transparent;border:0;text-decoration:underline;font-size:13px"></button></p>';
     a.innerHTML='<b id="httl"></b>'+f('h');
     $('gate').innerHTML='<div class="ser" id="gttl"></div><p class="hint" style="margin:6px 0 0">Your wallet and history follow you to any device.</p>'+f('g')+'<p class="hint"><button class="mini" id="skip" style="background:transparent;border:0;color:var(--mute);font-size:13px">Continue without saving</button></p>';
-    ['h','g'].forEach(x=>{$(x+'cu').value=S.cur||'NGN';$(x+'go').onclick=()=>auth(amode,x);$(x+'sw').onclick=()=>{amode=amode==='up'?'in':'up';applyMode()}});
+    ['h','g'].forEach(x=>{$(x+'cu').value=S.cur||'NGN';$(x+'go').onclick=()=>auth(amode,x);$(x+'fp').onclick=()=>forgot(x);$(x+'sw').onclick=()=>{amode=amode==='up'?'in':'up';applyMode()}});
     applyMode();
     $('skip').onclick=()=>{skip=true;try{sessionStorage.setItem('lockin-skip','1')}catch(e){}ui()}}}
-function initCloud(){if(!CLOUD)return;sb=supabase.createClient(SB_URL,SB_KEY);sb.auth.onAuthStateChange((_e,s)=>{setUser(s&&s.user)})}
+function initCloud(){if(!CLOUD)return;sb=supabase.createClient(SB_URL,SB_KEY);sb.auth.onAuthStateChange((ev,s)=>{if(ev==='PASSWORD_RECOVERY')showReset();setUser(s&&s.user)})}
 accUI();initCloud();
 
 let tb=0,curTid=null;
 const focusToday=()=>(S.log||[]).filter(e=>e.k==='focus'&&dkey(e.t)===dkey(Date.now())).reduce((a,e)=>a+e.amt,0);
 function refreshTb(){tb=focusToday()}
-function streak(){let n=0;const d=new Date(),H=S.hits||{};if(!H[dkey(d)])d.setDate(d.getDate()-1);while(H[dkey(d)]){n++;d.setDate(d.getDate()-1)}return n}
+const isRest=k=>{const[a,b,c]=k.split('-');return(S.rest||[]).includes(new Date(a,b-1,c).getDay())};
+function streak(){let n=0,c=0;const d=new Date(),H=S.hits||{},F=S.frozen||{};if(!H[dkey(d)])d.setDate(d.getDate()-1);while(c++<400){const k=dkey(d);if(H[k])n++;else if(!(F[k]||isRest(k)))break;d.setDate(d.getDate()-1)}return n}
 function pausesLeft(){if(!S.pu||S.pu.d!==day())S.pu={d:day(),n:0};return MAXP-S.pu.n}
 function liveUI(){
   {const bb=$('blkbar');bb.classList.toggle('hide',!blk);if(blk){const t=new Date(blk.to).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});let s='🧱 Work block until '+t;if(!run&&cool)s+=' · cool-down '+clock(cool.end-Date.now())+', next session starts by itself';else if(!run&&brk)s+=' · on a break, next session starts after';else if(!run&&blk.nextAt>Date.now())s+=' · starts in '+clock(blk.nextAt-Date.now());bb.querySelector('span').textContent=s;$('skipc').classList.toggle('hide',!(cool&&!run))}}
   const g=S.goal||GOAL,cur=tb+(run?pending():0),st=streak();
-  $('gtxt').textContent=(st?'🔥 '+st+'-day streak · ':'')+'Today '+N0(cur)+' / '+N0(g);
+  $('gtxt').textContent=(S.freeze?'🧊'+S.freeze+' · ':'')+(st?'🔥 '+st+'-day streak · ':'')+(isRest(dkey(Date.now()))?'Rest day · ':'')+'Today '+N0(cur)+' / '+N0(g);
   $('gfill').style.width=Math.min(100,cur/g*100)+'%';
   if(run){if(run.res){run.res=0;SND.ping();toast('Timer running again')}const b=$('pause');
     if(run.pa){b.textContent='⏸ Paused · '+Math.max(0,Math.ceil((run.pa+PAUSE_MS-Date.now())/1000))+'s';b.disabled=true}
@@ -388,18 +407,18 @@ function renderPark(){const P=(S.park||[]).filter(x=>!x.done),b=$('parkS');b.cla
 $('parkS').onclick=e=>{const b=e.target.closest('[data-a]');if(!b)return;const P=S.park||[],i=P.findIndex(x=>x.id===+b.dataset.i);if(i<0)return;if(b.dataset.a==='task'){(S.tasks=S.tasks||[]).push({id:Date.now(),text:P[i].text,done:false});toast('Added to your tasks')}P[i].done=Date.now();save();renderPark();renderTasks()};
 function park(){const v=$('pk').value.trim();if(!v)return;(S.park=S.park||[]).push({id:Date.now(),text:v.slice(0,80)});$('pk').value='';save();SND.ping();toast('Parked. Back to work.')}
 $('pkb').onclick=park;$('pk').onkeydown=e=>{if(e.key==='Enter')park()};
-function renderTasks(){const T=(S.tasks||[]).slice().sort((a,b)=>a.done-b.done);
-  $('tlist').innerHTML=T.length?T.map(t=>'<div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)"><input type="checkbox" data-a="done" data-i="'+t.id+'"'+(t.done?' checked':'')+' aria-label="Done" style="width:20px;height:20px;padding:0;flex:none"><span style="flex:1;'+(t.done?'text-decoration:line-through;color:var(--mute)':'')+'">'+esc(t.text)+(t.mins?'<br><span style="font-size:12px;color:var(--mute);text-decoration:none">'+t.mins+' min focused</span>':'')+'</span>'+(t.done?'':'<button class="mini" data-a="focus" data-i="'+t.id+'">Focus</button>')+'<button class="mini" data-a="del" data-i="'+t.id+'" aria-label="Delete">✕</button></div>').join(''):'<p class="hint">No tasks yet. Add what you want to get done.</p>';renderDone()}
-function addTask(){const v=$('tin').value.trim();if(!v)return;(S.tasks=S.tasks||[]).push({id:Date.now(),text:v.slice(0,80),done:false});$('tin').value='';save();renderTasks()}
+function renderTasks(){const td=dkey(Date.now()),dk=t=>dkey(t.id),T=(S.tasks||[]).filter(t=>dk(t)===td||!t.done||t.dd===td).sort((a,b)=>a.done-b.done);
+  $('tlist').innerHTML=T.length?T.map(t=>'<div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)"><input type="checkbox" data-a="done" data-i="'+t.id+'"'+(t.done?' checked':'')+' aria-label="Done" style="width:20px;height:20px;padding:0;flex:none"><span style="flex:1;'+(t.done?'text-decoration:line-through;color:var(--mute)':'')+'">'+esc(t.text)+(t.tag?' <span class="mini" style="padding:1px 8px;font-size:11px;cursor:default">'+esc(t.tag)+'</span>':'')+((t.mins||dk(t)!==td)?'<br><span style="font-size:12px;color:var(--mute);text-decoration:none">'+(dk(t)!==td?'from '+dlab(dk(t))+(t.mins?' · ':''):'')+(t.mins?t.mins+' min focused':'')+'</span>':'')+'</span>'+(t.done?'':'<button class="mini" data-a="focus" data-i="'+t.id+'">Focus</button>')+'<button class="mini" data-a="del" data-i="'+t.id+'" aria-label="Delete">✕</button></div>').join(''):'<p class="hint">No tasks yet. Add what you want to get done.</p>';renderDone()}
+function addTask(){const v=$('tin').value.trim();if(!v)return;(S.tasks=S.tasks||[]).push({id:Date.now(),text:v.slice(0,80),done:false,tag:$('ttag').value});$('tin').value='';save();renderTasks()}
 $('tadd').onclick=addTask;$('tin').onkeydown=e=>{if(e.key==='Enter')addTask()};
 $('tlist').onclick=e=>{const b=e.target.closest('[data-a]');if(!b)return;const T=S.tasks||[],t=T.find(x=>x.id===+b.dataset.i);if(!t)return;const a=b.dataset.a;
-  if(a==='done')t.done=b.checked;else if(a==='del')T.splice(T.indexOf(t),1);else if(a==='focus'){$('task').value=t.text;curTid=t.id;save();view('focus');toast('Task set. Hit start when you are ready.');return}
+  if(a==='done'){t.done=b.checked;t.dd=b.checked?dkey(Date.now()):null}else if(a==='del')T.splice(T.indexOf(t),1);else if(a==='focus'){$('task').value=t.text;curTid=t.id;save();view('focus');toast('Task set. Hit start when you are ready.');return}
   save();renderTasks()};
 $('task').oninput=()=>{curTid=null};
 let ciE=null,ciT=null,ciR=0;
 function openCI(e,t){ciE=e;ciT=t;ciR=0;$('cin').value='';$('cid').checked=false;document.querySelectorAll('#ci .rb').forEach(b=>b.setAttribute('aria-pressed','false'));$('cidw').classList.toggle('hide',!t||t.done);if(t)$('cidl').textContent='Mark "'+t.text+'" as done';$('ci').classList.remove('hide')}
 document.querySelectorAll('#ci .rb').forEach(b=>b.onclick=()=>{ciR=+b.dataset.r;document.querySelectorAll('#ci .rb').forEach(x=>x.setAttribute('aria-pressed',x===b))});
-$('cisave').onclick=()=>{if(ciE){if(ciR)ciE.rate=ciR;const n=$('cin').value.trim();if(n)ciE.note=n.slice(0,100)}if(ciT&&$('cid').checked)ciT.done=true;save();$('ci').classList.add('hide');renderTasks();if(!$('v-hist').classList.contains('hide'))hist()};
+$('cisave').onclick=()=>{if(ciE){if(ciR)ciE.rate=ciR;const n=$('cin').value.trim();if(n)ciE.note=n.slice(0,100)}if(ciT&&$('cid').checked){ciT.done=true;ciT.dd=dkey(Date.now())}save();$('ci').classList.add('hide');renderTasks();if(!$('v-hist').classList.contains('hide'))hist()};
 $('ciskip').onclick=()=>$('ci').classList.add('hide');
 const CK=['NGN','GBP','USD'];
 function mins(){const v=$('len').value;if(v!=='custom')return +v;return Math.min(180,Math.max(0,Math.round(+$('clen').value||0)))}
@@ -409,8 +428,8 @@ $('len').onchange=()=>{cest();ui()};
 function applyCur(){lenOpts();cest();blenOpts();$('ratehint').textContent='You earn '+money(RATE).replace(/\.00$/,'')+' for every minute you stay locked in.';$('cp').placeholder='Price ('+cc().s+')';$('cur').textContent='💱 '+(S.cur||'NGN');ui();showShop();render();if(!$('v-hist').classList.contains('hide'))hist()}
 $('cur').onclick=()=>{S.cur=CK[(CK.indexOf(S.cur||'NGN')+1)%3];save();applyCur()};
 let blk=null,cool=null,lastHB=0;
-function endBlock(){blk=null;cool=null;toast('Work block complete 🎉 Great work.');SND.done();notify('Work block complete 🎉','You made it to the end.');ui();render()}
-function blkTick(){rollDay();if(Date.now()-lastHB>2000){lastHB=Date.now();saveLive()}if(blk&&!run&&!brk&&blk.nextAt&&Date.now()>=blk.nextAt){blk.nextAt=0;cool=null;if(blk.to-Date.now()<6e4)endBlock();else{begin();view('focus')}}}
+function endBlock(){S.blocks=(S.blocks||0)+1;newBadges();save();blk=null;cool=null;toast('Work block complete 🎉 Great work.');SND.done();notify('Work block complete 🎉','You made it to the end.');ui();render()}
+function blkTick(){rollDay();remTick();if(Date.now()-lastHB>2000){lastHB=Date.now();saveLive()}if(blk&&!run&&!brk&&blk.nextAt&&Date.now()>=blk.nextAt){blk.nextAt=0;cool=null;if(blk.to-Date.now()<6e4)endBlock();else{begin();view('focus')}}}
 $('skipc').onclick=()=>{if(cool&&blk){cool=null;blk.nextAt=Date.now()}};
 $('endb').onclick=()=>{if(confirm('End the work block? A session in progress will finish normally.')){blk=null;cool=null;toast('Work block ended.');render()}};
 $('mode').onchange=()=>{const b=$('mode').value==='b';['blkrow','blenrow','blkhint'].forEach(i=>$(i).classList.toggle('hide',!b));$('cbrow').classList.toggle('hide',!(b&&$('blen').value==='c'));$('len').parentElement.classList.toggle('hide',b);if(b){['crow','cest'].forEach(i=>$(i)&&$(i).classList.add('hide'))}else if(typeof cest==='function')cest();$('start').textContent=b?'Start work block':'Start earning'};
@@ -429,7 +448,63 @@ function blenOpts(sel){const v=sel||$('blen').value||'50';$('blen').innerHTML=[2
 const bm=()=>$('blen').value==='c'?Math.min(240,Math.max(0,Math.round(+$('cbl').value||0))):+$('blen').value;
 $('blen').onchange=()=>{$('cbrow').classList.toggle('hide',$('blen').value!=='c')};
 const CARRY=.25;
-function rollDay(){if(S.day===day()||blk)return;const lost=Math.round(S.bal*(1-CARRY));S.day=day();S.dayN=0;if(lost>0){S.bal-=lost;log({k:'expire',amt:lost});toast('New day. '+money(lost).replace(/\.00$/,'')+' of unspent money expired.')}save()}
+function rollDay(){if(S.day===day()||blk)return;{const yk=dkey(Date.now()-864e5),H=S.hits||{};if(!H[yk]&&!isRest(yk)&&(S.freeze||0)>0){S.frozen=S.frozen||{};S.frozen[yk]=true;if(streak()>0){S.freeze--;S.usedFreeze=1;toast('🧊 Streak freeze used. Your streak is safe.')}else delete S.frozen[yk]}}const lost=Math.round(S.bal*(1-CARRY));S.day=day();S.dayN=0;if(lost>0){S.bal-=lost;log({k:'expire',amt:lost});toast('New day. '+money(lost).replace(/\.00$/,'')+' of unspent money expired.')}save()}
+
+async function forgot(x){const email=$(x+'em').value.trim();if(!email){toast('Type your email first, then tap Forgot password.');return}const r=await sb.auth.resetPasswordForEmail(email,{redirectTo:location.origin+location.pathname});toast(r.error?r.error.message:'Check your email for a reset link.')}
+function showReset(){$('rs').classList.remove('hide');$('rgo').onclick=async()=>{const pw=$('rpw').value;if(pw.length<6){toast('Use 6 or more characters.');return}const r=await sb.auth.updateUser({password:pw});if(r.error){toast(r.error.message);return}$('rs').classList.add('hide');toast('Password updated.');try{history.replaceState(null,'',location.pathname)}catch(e){}}}
+const RANKS=[['Rookie',0],['Grinder',300],['Locked In',1500],['Legend',6000]];
+const BADGES=[['first','🎯','First session',()=>S.sessions>=1],['s3','🔥','3-day streak',()=>(S.best||0)>=3],['s7','🔥','7-day streak',()=>(S.best||0)>=7],['s30','🌋','30-day streak',()=>(S.best||0)>=30],['h10','⏱️','10 hours focused',()=>(S.fm||0)>=600],['h50','💪','50 hours focused',()=>(S.fm||0)>=3000],['blk','🧱','Finished a work block',()=>(S.blocks||0)>=1],['treat','🎁','Claimed a treat',()=>(S.treats||0)>=1],['frz','🧊','Used a streak freeze',()=>!!S.usedFreeze]];
+const rankIdx=()=>{const m=S.fm||0;let i=0;RANKS.forEach((r,j)=>{if(m>=r[1])i=j});return i};
+const rankName=()=>RANKS[rankIdx()][0];
+function newBadges(){S.bd=S.bd||{};const n=[];BADGES.forEach(b=>{if(!S.bd[b[0]]&&b[3]()){S.bd[b[0]]=Date.now();n.push(b[1]+' '+b[2])}});return n}
+function renderRank(){if(S.fm==null)S.fm=(S.log||[]).filter(e=>e.k==='focus').reduce((a,e)=>a+e.mins,0);const m=S.fm,i=rankIdx(),nx=RANKS[i+1],pc=nx?(m-RANKS[i][1])/(nx[1]-RANKS[i][1])*100:100;
+  $('rank').innerHTML='<div class="row" style="justify-content:space-between;align-items:baseline;margin:0 0 6px"><b class="big" style="font-size:20px">'+RANKS[i][0]+'</b><span class="hint" style="margin:0">'+(nx?Math.round((nx[1]-m)/6)/10+'h to '+nx[0]:'Top rank')+'</span></div><div class="bar" style="margin-bottom:10px"><i style="width:'+pc+'%"></i></div><div style="display:flex;flex-wrap:wrap;gap:6px">'+BADGES.map(b=>'<span class="mini" style="cursor:default;padding:4px 10px;'+(S.bd&&S.bd[b[0]]?'':'opacity:.35;filter:grayscale(1)')+'">'+b[1]+' '+b[2]+'</span>').join('')+'</div>'}
+const DN=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+function renderIns(L){const F=L.filter(e=>e.k==='focus'),el=$('ins');if(F.length<3){el.innerHTML='<p class="hint" style="text-align:left">Finish 3 sessions to unlock insights.</p>';return}
+  const hr={},dw={},tg={},tt={};F.forEach(e=>{const d=new Date(e.t);hr[d.getHours()]=(hr[d.getHours()]||0)+e.mins;dw[d.getDay()]=(dw[d.getDay()]||0)+e.mins;if(e.tag)tg[e.tag]=(tg[e.tag]||0)+e.mins;if(e.task)tt[e.task]=(tt[e.task]||0)+e.mins});
+  const top=o=>Object.keys(o).sort((a,b)=>o[b]-o[a])[0],bh=+top(hr),fh=h=>(h%12||12)+(h%24<12?'am':'pm');
+  const R=F.filter(e=>e.rate&&e.t>Date.now()-7*864e5),avg=R.length?R.reduce((a,e)=>a+e.rate,0)/R.length:0,q=L.filter(e=>e.k==='quit').length,tp=top(tt),tags=Object.keys(tg).sort((a,b)=>tg[b]-tg[a]).map(k=>k+' '+tg[k]+'m').join(' · ');
+  const rows=[['⏰','You focus best around '+fh(bh)+' to '+fh(bh+1)],['📅','Strongest day: '+DN[top(dw)]],['⏱️','Average session: '+Math.round(F.reduce((a,e)=>a+e.mins,0)/F.length)+' min'+(q?' · gave up '+q+' time'+(q===1?'':'s'):'')]];
+  if(avg)rows.push(['🔥','Focus rating this week: '+avg.toFixed(1)+' / 5']);if(tp)rows.push(['🏆','Most time on: '+esc(tp)]);if(tags)rows.push(['🏷️',tags]);
+  el.innerHTML='<b class="big" style="font-size:18px">Insights</b>'+rows.map(r=>'<div style="padding:7px 0;font-size:14px;border-bottom:1px solid var(--line)">'+r[0]+' '+r[1]+'</div>').join('')+'<div style="height:14px"></div>'}
+function renderJar(){const T=S.treat,el=$('jar');
+  if(!T){el.innerHTML='<b class="big" style="font-size:18px">Treat jar 🎁</b><p class="hint" style="text-align:left;margin:2px 0 8px">Save toward something real. Money in the jar never expires.</p><div class="row"><input id="jn" placeholder="e.g. Jollof lunch" maxlength="30"><input id="jp" type="number" min="0" step="any" placeholder="Price ('+cc().s+')" inputmode="decimal"></div><button class="go" id="jset" style="width:100%;font-size:15px;padding:12px">Start saving</button>';
+    $('jset').onclick=()=>{const n=$('jn').value.trim(),p=Math.round(+$('jp').value/cc().fx);if(!n||p<100){toast('Add a treat name and a price.');return}S.treat={name:n,price:p,saved:0};save();renderJar()};return}
+  const full=T.saved>=T.price,mm=n=>money(n).replace(/\.00$/,'');
+  el.innerHTML='<b class="big" style="font-size:18px">Treat jar 🎁 '+esc(T.name)+'</b><div class="bar" style="margin:8px 0"><i style="width:'+Math.min(100,T.saved/T.price*100)+'%"></i></div><p class="hint" style="text-align:left;margin:0 0 8px">'+mm(T.saved)+' of '+mm(T.price)+'</p>'+(full?'<button class="go" id="jclaim" style="width:100%;font-size:15px;padding:12px">Claim your treat 🎉</button>':'<div class="row"><input id="ja" type="number" min="0" step="any" placeholder="Add from wallet ('+cc().s+')" inputmode="decimal"><button class="go" id="jadd" style="width:auto;padding:0 16px;font-size:14px">Add</button></div>')+'<p class="hint" style="margin:8px 0 0"><button class="mini" id="jdel" style="background:transparent;border:0;text-decoration:underline">Cancel and refund the jar</button></p>';
+  if(full)$('jclaim').onclick=()=>{S.treats=(S.treats||0)+1;log({k:'treat',name:T.name,amt:T.price});S.treat=null;const nb=newBadges();save();toast('Enjoy your '+T.name+' 🎁'+(nb.length?' · 🏅 '+nb.join(', '):''));SND.done();rain();renderJar()};
+  else $('jadd').onclick=()=>{let a=Math.round(+$('ja').value/cc().fx);a=Math.min(a,T.price-T.saved,Math.floor(S.bal));if(!(a>0)){toast('Add an amount you have in your wallet.');return}S.bal-=a;T.saved+=a;save();renderJar();render()};
+  $('jdel').onclick=()=>{S.bal+=T.saved;S.treat=null;save();renderJar();render()}}
+function renderSet(){const R=S.rest||[];$('restd').innerHTML=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].map((n,i)=>'<button class="mini" data-d="'+i+'" aria-pressed="'+R.includes(i)+'" style="padding:6px 12px;'+(R.includes(i)?'background:var(--gold);color:#171717':'')+'">'+n+'</button>').join('');$('remt').value=(S.rem&&S.rem.t)||'09:00';$('remb').textContent=S.rem&&S.rem.on?'On':'Off'}
+$('restd').onclick=e=>{const b=e.target.closest('[data-d]');if(!b)return;const i=+b.dataset.d,R=S.rest||[];S.rest=R.includes(i)?R.filter(x=>x!==i):R.concat(i);save();renderSet();liveUI()};
+$('remb').onclick=()=>{S.rem=S.rem||{on:false,t:'09:00'};S.rem.on=!S.rem.on;S.rem.t=$('remt').value||'09:00';if(S.rem.on)try{if('Notification' in window&&Notification.permission==='default')Notification.requestPermission()}catch(e){}save();renderSet();toast(S.rem.on?'Reminder set for '+S.rem.t:'Reminder off')};
+$('remt').onchange=()=>{S.rem=S.rem||{on:false,t:'09:00'};S.rem.t=$('remt').value;save()};
+function remTick(){const r=S.rem;if(!r||!r.on||run)return;const n=new Date(),hm=String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');if(hm===r.t&&S.remD!==dkey(n)&&!isRest(dkey(n))){S.remD=dkey(n);save();toast('⏰ Time to lock in.');notify('Time to lock in 🔒','Your streak is waiting.');SND.ping()}}
+let dip=null;addEventListener('beforeinstallprompt',e=>{e.preventDefault();dip=e});
+$('inst').onclick=()=>{if(dip){dip.prompt();dip=null}else toast('iPhone: Share, then Add to Home Screen. Android or desktop: browser menu, then Install app.')};
+try{if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js').catch(()=>{})}catch(e){}
+const TOUR=[['⏱️','Focus to earn','Every minute you focus earns money. Finish a session to bank it, and hit your daily goal for a bonus.'],['🛍️','Spend it on breaks','Cash buys breaks in the Shop: water, a walk, a nap. Unspent money mostly expires overnight, so use it.'],['🧱','Work blocks','Need to lock in from 9 to 5? Choose Work block. Sessions chain with a 2-minute cool-down, and you buy breaks to pause.'],['🔥','Streaks and ranks','Hit your goal daily to build a streak, protect it with a freeze, and climb from Rookie to Legend. Add tasks and park distracting thoughts as you go.']];
+function showTour(i){const t=TOUR[i];$('tourc').innerHTML='<div style="font-size:44px">'+t[0]+'</div><b class="big" style="font-size:22px;display:block;margin:6px 0">'+t[1]+'</b><p style="margin:0 0 16px;font-size:15px">'+t[2]+'</p><div class="row" style="margin:0"><button class="go" id="tnx" style="font-size:15px;padding:12px">'+(i<TOUR.length-1?'Next':'Let\'s go')+'</button><button class="mini" id="tsk" style="background:transparent;border:0">Skip</button></div><p class="hint" style="margin:10px 0 0">'+(i+1)+' of '+TOUR.length+'</p>';$('tour').classList.remove('hide');$('tnx').onclick=()=>{if(i<TOUR.length-1)showTour(i+1);else endTour()};$('tsk').onclick=endTour}
+function endTour(){$('tour').classList.add('hide');try{localStorage.setItem('lockin-tour','1')}catch(e){}}
+$('tourb').onclick=()=>showTour(0);
+try{if(!localStorage.getItem('lockin-tour'))setTimeout(()=>showTour(0),700)}catch(e){}
+document.addEventListener('keydown',e=>{const t=e.target.tagName;if(['INPUT','SELECT','TEXTAREA'].includes(t)||e.ctrlKey||e.metaKey||e.altKey)return;const k=e.key.toLowerCase();
+  if(k===' '){if(t==='BUTTON')return;e.preventDefault();if(run)$('pause').click();else if(!$('setup').classList.contains('hide'))$('start').click()}
+  else if(k==='f')view('focus');else if(k==='t')view('tasks');else if(k==='s')view('shop');else if(k==='h')view('hist');
+  else if(k==='p'&&run){e.preventDefault();$('pk').focus()}else if(k==='?')toast('Space: start or pause · F T S H: tabs · P: park a thought')});
+async function recap(){const L=S.log||[],now=new Date(),mon=new Date(now.getFullYear(),now.getMonth(),now.getDate()-((now.getDay()+6)%7)-wk*7),a=mon.getTime(),b=a+7*864e5,fd=d=>d.toLocaleDateString([],{day:'numeric',month:'short'});
+  const F=L.filter(e=>e.k==='focus'&&e.t>=a&&e.t<b),m=F.reduce((x,e)=>x+e.mins,0),earn=L.filter(e=>(e.k==='focus'||e.k==='bonus')&&e.t>=a&&e.t<b).reduce((x,e)=>x+e.amt,0),dm={};F.forEach(e=>{const d=new Date(e.t).getDay();dm[d]=(dm[d]||0)+e.mins});const bd=Object.keys(dm).sort((x,y)=>dm[y]-dm[x])[0];
+  try{await document.fonts.load('64px "Bagel Fat One"')}catch(e){}
+  const c=document.createElement('canvas');c.width=1080;c.height=1350;const g=c.getContext('2d'),gr=g.createLinearGradient(0,0,0,1350);gr.addColorStop(0,'#B8E0E8');gr.addColorStop(1,'#E4F4F0');g.fillStyle=gr;g.fillRect(0,0,1080,1350);
+  g.fillStyle='#FFFDF8';g.beginPath();g.roundRect?g.roundRect(70,110,940,1130,56):g.rect(70,110,940,1130);g.fill();g.lineWidth=4;g.strokeStyle='#171717';g.stroke();
+  g.textAlign='center';g.fillStyle='#171717';g.font='64px "Bagel Fat One",sans-serif';g.fillText('my week on lock in.',540,230);
+  g.font='600 34px "DM Sans",sans-serif';g.fillStyle='#6A6A62';g.fillText(fd(new Date(a))+' – '+fd(new Date(b-864e5)),540,290);
+  g.fillStyle='#8E2A5B';g.font='150px "Bagel Fat One",sans-serif';g.fillText(Math.floor(m/60)+'h '+m%60+'m',540,500);
+  g.fillStyle='#171717';g.font='600 40px "DM Sans",sans-serif';g.fillText('locked in',540,560);
+  [['🎯',F.length+' session'+(F.length===1?'':'s')],['💰',N0(earn)+' earned'],['📅','Best day: '+(bd!=null?DN[bd]:'–')],['🔥',streak()+'-day streak'],['🏅',rankName()+' rank']].forEach((r,i)=>{g.textAlign='left';g.font='54px sans-serif';g.fillText(r[0],200,690+i*100);g.font='700 46px "DM Sans",sans-serif';g.fillText(r[1],290,690+i*100)});
+  g.textAlign='center';g.fillStyle='#6A6A62';g.font='400 30px "Space Mono",monospace';g.fillText('lock in · earn while you focus',540,1180);
+  c.toBlob(async bl=>{const f=new File([bl],'lock-in-week.png',{type:'image/png'});try{if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:'My week on Lock In'});return}}catch(e){}const u=URL.createObjectURL(bl),an=document.createElement('a');an.href=u;an.download='lock-in-week.png';an.click();setTimeout(()=>URL.revokeObjectURL(u),4000)})}
+$('recap').onclick=recap;
 const rootEl=document.documentElement;
 const curTheme=()=>rootEl.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
 const themeBtn=()=>$('theme').textContent=curTheme()==='dark'?'☀️':'🌙';
